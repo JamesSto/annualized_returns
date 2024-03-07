@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import sys
 
 RETURN_PERIOD = 20
 
@@ -31,7 +32,7 @@ inflation_rate['YEAR'] = inflation_rate['DATE'].dt.year
 
 # Merge the datasets on YEAR
 data_merged = pd.merge(home_price_index_us[['YEAR', 'USSTHPI']], home_price_index_ca[['YEAR', 'CASTHPI']], on='YEAR', how='inner')
-data_merged = pd.merge(data_merged, inflation_rate[['YEAR', 'FPCPITOTLZGUSA']], on='YEAR', how='inner')
+data_merged = pd.merge(data_merged, inflation_rate[['YEAR', 'INFLATION_RATE']], on='YEAR', how='inner')
 # data_merged = pd.merge(data_merged, apple_values[['YEAR', 'APPLE_PRICE']], on='YEAR', how='inner')
 # data_merged = pd.merge(data_merged, google_values[['YEAR', 'GOOGLE_PRICE']], on='YEAR', how='inner')
 data_merged = pd.merge(data_merged, sp500_returns, on='YEAR', how='inner')
@@ -39,15 +40,23 @@ data_merged = pd.merge(data_merged, sp500_returns, on='YEAR', how='inner')
 # Sort the merged data by YEAR to facilitate further analysis
 data_merged = data_merged.sort_values(by='YEAR')
 
-print(data_merged.head())
-print("-"*100)
-print(data_merged.tail())
-
 # Convert S&P 500 returns to index values, starting from 100
 curr = 100
 for i in range(len(data_merged)):
     data_merged.loc[i, "SP500_INDEX"] = curr * (1 + data_merged.loc[i, 'RETURN']/100.0)
     curr = data_merged.loc[i, "SP500_INDEX"]
+
+# Adjust all data for inflation
+running_inflation_rate = 1
+for i in range(len(data_merged)):
+    running_inflation_rate *= 1 + (data_merged.loc[i, 'INFLATION_RATE'] / 100)
+    print(data_merged.loc[i, 'YEAR'], running_inflation_rate)
+    for col in COLUMNS:
+        data_merged.loc[i, col] /= running_inflation_rate
+
+print(data_merged.head())
+print("-"*100)
+print(data_merged.tail())
 
 def cagr(data, row_name, start, end):
     return (data.loc[end, row_name] / data.loc[start, row_name])**(1/(end-start)) - 1
@@ -81,7 +90,7 @@ for col in COLUMNS:
 # Customize the plot
 plt.xlabel('Percentile')
 plt.ylabel('Nominal Annual Return')
-plt.title(f'{RETURN_PERIOD} year annualized return since {data_merged.loc[0, "YEAR"]} percentiles')
+plt.title(f'{RETURN_PERIOD} year real annualized return since {data_merged.loc[0, "YEAR"]} percentiles')
 plt.legend()
 
 # Show the plot
