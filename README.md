@@ -1,0 +1,1 @@
+![20 year annualized since 1975](outputs/20 year annualized since 1975.png)
