@@ -8,12 +8,12 @@ RETURN_PERIOD = 20
 COLUMNS = ['USSTHPI', 'CASTHPI', 'SP500_INDEX']
 
 # Load the data from the uploaded files
-home_price_index_us = pd.read_csv('~/Downloads/Annual US Home Price Index.csv')
-home_price_index_ca = pd.read_csv('~/Downloads/Annual California Home Price Index.csv')
-inflation_rate = pd.read_csv('~/Downloads/US Annual Inflation Rate.csv')
-sp500_returns = pd.read_csv('~/Downloads/S&P 500 Annual Return (Nominal).csv')
-# apple_values = pd.read_csv('~/Downloads/apple_stock.csv')
-# google_values = pd.read_csv('~/Downloads/google_stock.csv')
+home_price_index_us = pd.read_csv('data/Annual US Home Price Index.csv')
+home_price_index_ca = pd.read_csv('data/Annual California Home Price Index.csv')
+inflation_rate = pd.read_csv('data/US Annual Inflation Rate.csv')
+sp500_returns = pd.read_csv('data/S&P 500 Annual Return (Nominal).csv')
+# apple_values = pd.read_csv('data/apple_stock.csv')
+# google_values = pd.read_csv('data/google_stock.csv')
 
 # Convert DATE columns to datetime objects for proper alignment
 home_price_index_us['DATE'] = pd.to_datetime(home_price_index_us['DATE'])
@@ -80,8 +80,8 @@ for col in COLUMNS:
 
 # Customize the plot
 plt.xlabel('Percentile')
-plt.ylabel('Nominal Return')
-plt.title(f'{RETURN_PERIOD} year annualized return since {data_merged.loc[0, "YEAR"]} percentiles for {", ".join(COLUMNS)}')
+plt.ylabel('Nominal Annual Return')
+plt.title(f'{RETURN_PERIOD} year annualized return since {data_merged.loc[0, "YEAR"]} percentiles')
 plt.legend()
 
 # Show the plot
