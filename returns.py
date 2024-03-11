@@ -3,20 +3,23 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import sys
 
-RETURN_PERIOD = 20
+RETURN_PERIOD = 5
 
-# COLUMNS = ['USSTHPI', 'CASTHPI', 'ATNHPIUS41940Q', 'SP500_INDEX', 'APPLE_PRICE', "GOOGLE_PRICE"]
 COLUMNS = {
     'USSTHPI' : "US Home Price Index", 
     'CASTHPI' : "CA Home Price Index", 
     'ATNHPIUS41940Q' : "San Jose-Sunnyvale-Santa Clara Home Price Index", 
+    'ATNHPIUS41884Q' : "San Francisco-San Mateo-Redwood City Home Price Index",
+    'SFXRCSA' : "San Francisco Condo Price Index",
     'SP500_INDEX' : "S&P 500 Index"
 }
 
 # Load the data from the uploaded files
 home_price_index_us = pd.read_csv('data/Annual US Home Price Index.csv')
 home_price_index_ca = pd.read_csv('data/Annual California Home Price Index.csv')
-home_price_index_bay = pd.read_csv('data/Bay Area Home Price Index.csv')
+home_price_index_sj = pd.read_csv('data/San Jose-Sunnyvale-Santa Clara Area Home Price Index.csv')
+home_price_index_sf = pd.read_csv('data/San Francisco-San Mateo-Redwood City Home Price Index.csv')
+condo_price_index_sf = pd.read_csv('data/San Francisco Condo Price Index.csv')
 inflation_rate = pd.read_csv('data/US Annual Inflation Rate.csv')
 sp500_returns = pd.read_csv('data/S&P 500 Annual Return (Nominal).csv')
 # apple_values = pd.read_csv('data/apple_stock.csv')
@@ -25,7 +28,9 @@ sp500_returns = pd.read_csv('data/S&P 500 Annual Return (Nominal).csv')
 # Convert DATE columns to datetime objects for proper alignment
 home_price_index_us['DATE'] = pd.to_datetime(home_price_index_us['DATE'])
 home_price_index_ca['DATE'] = pd.to_datetime(home_price_index_ca['DATE'])
-home_price_index_bay['DATE'] = pd.to_datetime(home_price_index_bay['DATE'])
+home_price_index_sj['DATE'] = pd.to_datetime(home_price_index_sj['DATE'])
+home_price_index_sf['DATE'] = pd.to_datetime(home_price_index_sf['DATE'])
+condo_price_index_sf['DATE'] = pd.to_datetime(condo_price_index_sf['DATE'])
 inflation_rate['DATE'] = pd.to_datetime(inflation_rate['DATE'])
 # apple_values['DATE'] = pd.to_datetime(apple_values['DATE'])
 # google_values['DATE'] = pd.to_datetime(google_values['DATE'])
@@ -33,14 +38,18 @@ inflation_rate['DATE'] = pd.to_datetime(inflation_rate['DATE'])
 # Extract the year from DATE columns for easier merging
 home_price_index_us['YEAR'] = home_price_index_us['DATE'].dt.year
 home_price_index_ca['YEAR'] = home_price_index_ca['DATE'].dt.year
-home_price_index_bay['YEAR'] = home_price_index_bay['DATE'].dt.year
+home_price_index_sj['YEAR'] = home_price_index_sj['DATE'].dt.year
+home_price_index_sf['YEAR'] = home_price_index_sf['DATE'].dt.year
+condo_price_index_sf['YEAR'] = condo_price_index_sf['DATE'].dt.year
 inflation_rate['YEAR'] = inflation_rate['DATE'].dt.year
 # apple_values['YEAR'] = apple_values['DATE'].dt.year
 # google_values['YEAR'] = google_values['DATE'].dt.year
 
 # Merge the datasets on YEAR
 data_merged = pd.merge(home_price_index_us[['YEAR', 'USSTHPI']], home_price_index_ca[['YEAR', 'CASTHPI']], on='YEAR', how='inner')
-data_merged = pd.merge(data_merged, home_price_index_bay[['YEAR', 'ATNHPIUS41940Q']], on='YEAR', how='inner')
+data_merged = pd.merge(data_merged, home_price_index_sj[['YEAR', 'ATNHPIUS41940Q']], on='YEAR', how='inner')
+data_merged = pd.merge(data_merged, home_price_index_sf[['YEAR', 'ATNHPIUS41884Q']], on='YEAR', how='inner')
+data_merged = pd.merge(data_merged, condo_price_index_sf[['YEAR', 'SFXRCSA']], on='YEAR', how='inner')
 data_merged = pd.merge(data_merged, inflation_rate[['YEAR', 'INFLATION_RATE']], on='YEAR', how='inner')
 # data_merged = pd.merge(data_merged, apple_values[['YEAR', 'APPLE_PRICE']], on='YEAR', how='inner')
 # data_merged = pd.merge(data_merged, google_values[['YEAR', 'GOOGLE_PRICE']], on='YEAR', how='inner')
