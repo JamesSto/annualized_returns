@@ -1,0 +1,42 @@
+/* Page layout base */
+html,
+body {
+  margin: 0;
+  height: 100%;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(to bottom right, #2a303c, #16161e);
+  color: #f1f1f1;
+  line-height: 1.6;
+}
+
+/* Vite injects everything inside #root */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header styles */
+header {
+  font-family: 'Wallpoet', cursive;
+  font-size: 2.3rem;
+  padding: 0.2rem;
+  background-color: linear-gradient(to bottom right, #2a303c, #16161e);
+  border-bottom: 1px solid #444;
+  text-align: center;
+  color: #ffffff;
+}
+
+header a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+/* Main content styles */
+main {
+  flex: 1; /* makes it stretch to fill available vertical space */
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  color: #dcdcdc;
+}
