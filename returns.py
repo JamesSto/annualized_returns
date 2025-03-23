@@ -2,61 +2,48 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import sys
+import os
 
-RETURN_PERIOD = 5
+RETURN_PERIOD = 10
+START_DATE = 1976
+START_DATE = max(START_DATE, 1976) # Earliest the data goes back is 1976
 
-COLUMNS = {
-    'USSTHPI' : "US Home Price Index", 
-    'CASTHPI' : "CA Home Price Index", 
-    'ATNHPIUS41940Q' : "San Jose-Sunnyvale-Santa Clara Home Price Index", 
-    'ATNHPIUS41884Q' : "San Francisco-San Mateo-Redwood City Home Price Index",
-    'SFXRCSA' : "San Francisco Condo Price Index",
-    'SP500_INDEX' : "S&P 500 Index"
-}
+ADJUST_FOR_INFLATION = False
+
+TO_SKIP = [
+    "S&P 500 Annual Return (Nominal).csv",
+    "San Francisco Condo Price Index.csv",
+    "San Jose-Sunnyvale-Santa Clara Area Home Price Index.csv",
+    "San Francisco-San Mateo-Redwood City Home Price Index.csv",
+    "Annual California Home Price Index.csv"
+]
+
+COLUMNS = {}
+
+data_merged = None
+
+for filename in os.listdir("data"):
+    if filename in TO_SKIP:
+        continue
+    new_data = pd.read_csv("data/" + filename)
+    new_data['DATE'] = pd.to_datetime(new_data['DATE'])
+    new_data['YEAR'] = new_data['DATE'].dt.year
+    if data_merged is None:
+        data_merged = new_data
+    else:
+        data_merged = pd.merge(data_merged, new_data[['YEAR', new_data.columns[1]]], on='YEAR', how='inner')
+    
+    if new_data.columns[1] != 'INFLATION_RATE':
+        COLUMNS[new_data.columns[1]] = filename[:-4]
+
+print(COLUMNS)
 
 # Load the data from the uploaded files
-home_price_index_us = pd.read_csv('data/Annual US Home Price Index.csv')
-home_price_index_ca = pd.read_csv('data/Annual California Home Price Index.csv')
-home_price_index_sj = pd.read_csv('data/San Jose-Sunnyvale-Santa Clara Area Home Price Index.csv')
-home_price_index_sf = pd.read_csv('data/San Francisco-San Mateo-Redwood City Home Price Index.csv')
-condo_price_index_sf = pd.read_csv('data/San Francisco Condo Price Index.csv')
-inflation_rate = pd.read_csv('data/US Annual Inflation Rate.csv')
 sp500_returns = pd.read_csv('data/S&P 500 Annual Return (Nominal).csv')
-# apple_values = pd.read_csv('data/apple_stock.csv')
-# google_values = pd.read_csv('data/google_stock.csv')
-
-# Convert DATE columns to datetime objects for proper alignment
-home_price_index_us['DATE'] = pd.to_datetime(home_price_index_us['DATE'])
-home_price_index_ca['DATE'] = pd.to_datetime(home_price_index_ca['DATE'])
-home_price_index_sj['DATE'] = pd.to_datetime(home_price_index_sj['DATE'])
-home_price_index_sf['DATE'] = pd.to_datetime(home_price_index_sf['DATE'])
-condo_price_index_sf['DATE'] = pd.to_datetime(condo_price_index_sf['DATE'])
-inflation_rate['DATE'] = pd.to_datetime(inflation_rate['DATE'])
-# apple_values['DATE'] = pd.to_datetime(apple_values['DATE'])
-# google_values['DATE'] = pd.to_datetime(google_values['DATE'])
-
-# Extract the year from DATE columns for easier merging
-home_price_index_us['YEAR'] = home_price_index_us['DATE'].dt.year
-home_price_index_ca['YEAR'] = home_price_index_ca['DATE'].dt.year
-home_price_index_sj['YEAR'] = home_price_index_sj['DATE'].dt.year
-home_price_index_sf['YEAR'] = home_price_index_sf['DATE'].dt.year
-condo_price_index_sf['YEAR'] = condo_price_index_sf['DATE'].dt.year
-inflation_rate['YEAR'] = inflation_rate['DATE'].dt.year
-# apple_values['YEAR'] = apple_values['DATE'].dt.year
-# google_values['YEAR'] = google_values['DATE'].dt.year
-
-# Merge the datasets on YEAR
-data_merged = pd.merge(home_price_index_us[['YEAR', 'USSTHPI']], home_price_index_ca[['YEAR', 'CASTHPI']], on='YEAR', how='inner')
-data_merged = pd.merge(data_merged, home_price_index_sj[['YEAR', 'ATNHPIUS41940Q']], on='YEAR', how='inner')
-data_merged = pd.merge(data_merged, home_price_index_sf[['YEAR', 'ATNHPIUS41884Q']], on='YEAR', how='inner')
-data_merged = pd.merge(data_merged, condo_price_index_sf[['YEAR', 'SFXRCSA']], on='YEAR', how='inner')
-data_merged = pd.merge(data_merged, inflation_rate[['YEAR', 'INFLATION_RATE']], on='YEAR', how='inner')
-# data_merged = pd.merge(data_merged, apple_values[['YEAR', 'APPLE_PRICE']], on='YEAR', how='inner')
-# data_merged = pd.merge(data_merged, google_values[['YEAR', 'GOOGLE_PRICE']], on='YEAR', how='inner')
 data_merged = pd.merge(data_merged, sp500_returns, on='YEAR', how='inner')
 
 # Sort the merged data by YEAR to facilitate further analysis
-data_merged = data_merged.sort_values(by='YEAR')
+data_merged = data_merged.sort_values(by='YEAR').reset_index(drop=True)
 
 # Convert S&P 500 returns to index values, starting from 100
 curr = 100
@@ -64,14 +51,15 @@ for i in range(len(data_merged)):
     data_merged.loc[i, "SP500_INDEX"] = curr * (1 + data_merged.loc[i, 'RETURN']/100.0)
     curr = data_merged.loc[i, "SP500_INDEX"]
 
-print(data_merged.head(15))
+COLUMNS["SP500_INDEX"] = "S&P 500 Index"
 
 # Adjust all data for inflation
-running_inflation_rate = 1
-for i in range(len(data_merged)):
-    running_inflation_rate *= 1 + (data_merged.loc[i, 'INFLATION_RATE'] / 100)
-    for col in COLUMNS.keys():
-        data_merged.loc[i, col] /= running_inflation_rate
+if ADJUST_FOR_INFLATION:
+    running_inflation_rate = 1
+    for i in range(len(data_merged)):
+        running_inflation_rate *= 1 + (data_merged.loc[i, 'INFLATION_RATE'] / 100)
+        for col in COLUMNS.keys():
+            data_merged.loc[i, col] /= running_inflation_rate
 
 print(data_merged.head(15))
 
@@ -89,6 +77,9 @@ while start + RETURN_PERIOD < len(data_merged):
     start += 1
 
 cagrs = pd.DataFrame(rows, columns=['Year'] + list(COLUMNS.keys()))
+cagrs = cagrs[cagrs['Year'] >= START_DATE + RETURN_PERIOD]
+print(cagrs.head(5))
+print(cagrs.tail(5))
 
 quantiles = []
 
@@ -106,8 +97,8 @@ for col, label in COLUMNS.items():
 
 # Customize the plot
 plt.xlabel('Percentile')
-plt.ylabel('Real Annual Return')
-plt.title(f'{RETURN_PERIOD} year real annualized return since {data_merged.loc[0, "YEAR"]} percentiles')
+plt.ylabel('Real Annual Return' if ADJUST_FOR_INFLATION else 'Nominal Annual Return')
+plt.title(f'{RETURN_PERIOD} year {"real" if ADJUST_FOR_INFLATION else "nominal"} annualized return since {START_DATE} percentiles')
 plt.legend()
 
 # Show the plot
