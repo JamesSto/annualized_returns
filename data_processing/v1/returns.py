@@ -4,11 +4,11 @@ import matplotlib.pyplot as plt
 import sys
 import os
 
-RETURN_PERIOD = 10
+RETURN_PERIOD = 30
 START_DATE = 1976
 START_DATE = max(START_DATE, 1976) # Earliest the data goes back is 1976
 
-ADJUST_FOR_INFLATION = False
+ADJUST_FOR_INFLATION = True
 
 TO_SKIP = [
     "S&P 500 Annual Return (Nominal).csv",
@@ -16,6 +16,7 @@ TO_SKIP = [
     "San Jose-Sunnyvale-Santa Clara Area Home Price Index.csv",
     "San Francisco-San Mateo-Redwood City Home Price Index.csv",
     "Annual California Home Price Index.csv"
+    # "Annual US Home Price Index.csv"
 ]
 
 COLUMNS = {}
