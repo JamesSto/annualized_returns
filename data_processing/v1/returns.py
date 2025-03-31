@@ -4,11 +4,11 @@ import matplotlib.pyplot as plt
 import sys
 import os
 
-RETURN_PERIOD = 30
+RETURN_PERIOD = 20
 START_DATE = 1976
 START_DATE = max(START_DATE, 1976) # Earliest the data goes back is 1976
-
-ADJUST_FOR_INFLATION = True
+END_DATE = 2025
+ADJUST_FOR_INFLATION = False
 
 TO_SKIP = [
     "S&P 500 Annual Return (Nominal).csv",
@@ -79,6 +79,7 @@ while start + RETURN_PERIOD < len(data_merged):
 
 cagrs = pd.DataFrame(rows, columns=['Year'] + list(COLUMNS.keys()))
 cagrs = cagrs[cagrs['Year'] >= START_DATE + RETURN_PERIOD]
+cagrs = cagrs[cagrs['Year'] <= END_DATE]
 print(cagrs.head(5))
 print(cagrs.tail(5))
 
@@ -87,6 +88,9 @@ quantiles = []
 for quantile in range(101):
     q = quantile/100
     quantiles.append([q] + [cagrs[col].quantile(q) for col in COLUMNS.keys()])
+
+for q in quantiles:
+    print(q)
 
 quant_frame = pd.DataFrame(quantiles, columns=['quantile'] + list(COLUMNS.keys()))
 

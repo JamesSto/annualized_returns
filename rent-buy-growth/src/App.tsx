@@ -1,5 +1,6 @@
 // import { useState } from 'react'
-import './App.css'
+import "./App.css";
+import GrowthChart from "./components/GrowthChart";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           Pellentesque habitant morbi tristique senectus et netus et malesuada
           fames ac turpis egestas.
         </p>
+        <GrowthChart />
         <p>
           Praesent feugiat ligula a nibh interdum, vitae tempus ante fermentum.
           Curabitur vitae tincidunt libero, at imperdiet lacus. Donec
@@ -27,4 +29,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
