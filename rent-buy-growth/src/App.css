@@ -65,3 +65,7 @@ h4 {
 .no-margin-bottom {
     margin-bottom: 0;
 }
+
+.interactive-growth-chart {
+    margin-bottom: 10;
+}

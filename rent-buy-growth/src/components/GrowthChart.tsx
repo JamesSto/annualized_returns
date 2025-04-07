@@ -96,7 +96,7 @@ const GrowthChart: React.FC<GrowthChartProps> = ({
           >
             {/* Label styled via CSS, but position props remain */}
             <Label
-              value="Growth (%)"
+              value="Nominal Growth %"
               angle={-90}
               position="insideLeft"
               // Removed inline style prop

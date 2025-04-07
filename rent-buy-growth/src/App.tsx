@@ -258,12 +258,7 @@ function App() {
           Area, so I'll probably adjust for specific local housing numbers at
           least some.
         </p>{" "}
-        <div>
-          <h2>Interactive Growth Chart</h2>
-          <p>
-            Use this interactive tool to explore historical growth rates for different assets over various time periods.
-            Select the assets you want to compare, adjust the period size, and set your preferred year range.
-          </p>
+        <div className="interactive-growth-chart">
           <InteractiveGrowthChart />
         </div>
       </main>

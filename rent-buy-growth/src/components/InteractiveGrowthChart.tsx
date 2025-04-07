@@ -46,13 +46,15 @@ const InteractiveGrowthChart: React.FC = () => {
   };
 
   return (
-    <div className={styles.chartContainer}>
-      <GrowthChart
-        assets={selectedAssets}
-        periodSize={periodSize}
-        startYear={startYear}
-        endYear={endYear}
-      />
+    <>
+      <div className={styles.chartContainer}>
+        <GrowthChart
+          assets={selectedAssets}
+          periodSize={periodSize}
+          startYear={startYear}
+          endYear={endYear}
+        />
+      </div>
       <div className={styles.controlsContainer}>
         <div className={styles.controlSection}>
           <h3 className={styles.controlTitle}>Show Growth For:</h3>
@@ -71,47 +73,51 @@ const InteractiveGrowthChart: React.FC = () => {
         </div>
 
         <div className={styles.controlSection}>
-          <h3 className={styles.controlTitle}>:</h3>
-          <div className={styles.rangeControl}>
-            <input
-              type="range"
-              min="1"
-              max="30"
-              value={periodSize}
-              onChange={handlePeriodSizeChange}
-              className={styles.slider}
-            />
-            <span className={styles.rangeValue}>{periodSize} years</span>
+          <div className={styles.horizontalControl}>
+            <h3 className={styles.controlTitle}>Over periods of:</h3>
+            <div className={styles.rangeControl}>
+              <input
+                type="range"
+                min="1"
+                max="30"
+                value={periodSize}
+                onChange={handlePeriodSizeChange}
+                className={styles.slider}
+              />
+              <span className={styles.rangeValue}>{periodSize} years</span>
+            </div>
           </div>
         </div>
 
         <div className={styles.controlSection}>
-          <h3 className={styles.controlTitle}>Year Range</h3>
-          <div className={styles.yearControls}>
-            <div className={styles.yearInput}>
-              <label>Start Year:</label>
-              <input
-                type="number"
-                min="1977"
-                max={endYear - 1}
-                value={startYear}
-                onChange={handleStartYearChange}
-              />
-            </div>
-            <div className={styles.yearInput}>
-              <label>End Year:</label>
-              <input
-                type="number"
-                min={startYear + 1}
-                max="2024"
-                value={endYear}
-                onChange={handleEndYearChange}
-              />
+          <div className={styles.horizontalControl}>
+            <h3 className={styles.controlTitle}>From:</h3>
+            <div className={styles.yearControls}>
+              <div className={styles.yearInput}>
+                <label></label>
+                <input
+                  type="number"
+                  min="1977"
+                  max={endYear - 1}
+                  value={startYear}
+                  onChange={handleStartYearChange}
+                />
+              </div>
+              <div className={styles.yearInput}>
+                <label>to</label>
+                <input
+                  type="number"
+                  min={startYear + 1}
+                  max="2024"
+                  value={endYear}
+                  onChange={handleEndYearChange}
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

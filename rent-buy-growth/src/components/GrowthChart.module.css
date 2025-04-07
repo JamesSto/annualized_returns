@@ -2,195 +2,211 @@
 
 /* --- Container and Title --- */
 .chartContainer {
-    width: 100%;
-    height: 500px; /* Or adjust as needed */
-    font-family: sans-serif; /* Basic font */
-    background-color: #2a303c; /* Match page background */
-    padding: 20px;
-    border-radius: 8px; /* Optional: slight rounding */
-    box-sizing: border-box; /* Include padding in width/height calculation */
-  }
-  
-  .chartTitle {
-    color: #f1f1f1;
-    margin-top: 0;
-    margin-bottom: 0;
-    text-align: center;
-    font-weight: normal;
-  }
-  
-  /* --- Recharts Specific Styling --- */
-  
-  /* General text elements within the chart SVG */
-  .chartContainer :global(.recharts-text) {
-    fill: #ccc; /* Light gray for less emphasis than pure white */
-    font-size: 12px;
-  }
-  
-  /* Axis Ticks */
-  .chartContainer :global(.recharts-cartesian-axis-tick-value) {
-    fill: #ccc;
-    font-size: 12px;
-  }
-  
-  /* Axis Lines */
-  .chartContainer :global(.recharts-cartesian-axis-line) {
-    stroke: #666; /* Make axis lines visible but subtle */
-  }
-  
-  /* Axis Labels (e.g., "Growth (%)") */
-  .chartContainer :global(.recharts-label) {
-    fill: #f1f1f1; /* Main text color for labels */
-    font-size: 14px;
-  }
-  
-  /* Grid Lines */
-  .chartContainer :global(.recharts-cartesian-grid-line) line {
-    /* Use a subtle, semi-transparent white or light gray */
-    /* stroke: rgba(241, 241, 241, 0.15); */
-     stroke: #444954; /* A slightly lighter shade than the background */
-  }
-  
-  /* Legend Text */
-  .chartContainer :global(.recharts-legend-item-text) {
-     /* Use direct descendant selector for better specificity if needed */
-     /* fill is inherited from .recharts-text, but can override */
-     fill: #e0e0e0; /* Slightly off-white for legend */
-  }
-  
-  /* Optional: Hover effect on legend items */
-  .chartContainer :global(.recharts-legend-item):hover :global(.recharts-legend-item-text) {
-    fill: #ffffff; /* Brighten on hover */
-    cursor: pointer;
-  }
-  
-  /* Tooltip - Best styled via props, but fallback CSS can be added */
-  /* These might be less reliable due to potential portal rendering */
-  .chartContainer :global(.recharts-tooltip-wrapper) {
-    /* Styles applied via props are usually better */
-  }
+  width: 100%;
+  height: 500px; /* Or adjust as needed */
+  font-family: sans-serif; /* Basic font */
+  background-color: #2a303c; /* Match page background */
+  padding: 20px;
+  border-radius: 8px; /* Optional: slight rounding */
+  box-sizing: border-box; /* Include padding in width/height calculation */
+}
 
-  /* --- Interactive Controls Styling --- */
-  .controlsContainer {
-    margin-bottom: 20px;
-    padding: 15px;
-    background-color: #333842;
-    border-radius: 6px;
-    color: #f1f1f1;
-  }
+.chartTitle {
+  color: #f1f1f1;
+  margin-top: 0;
+  margin-bottom: 0;
+  text-align: center;
+  font-weight: normal;
+}
 
-  .controlSection {
-    margin-bottom: 15px;
-  }
+/* --- Recharts Specific Styling --- */
 
-  .controlTitle {
-    margin-top: 0;
-    margin-bottom: 10px;
-    font-size: 16px;
-    font-weight: 500;
-    color: #f1f1f1;
-  }
+/* General text elements within the chart SVG */
+.chartContainer :global(.recharts-text) {
+  fill: #ccc; /* Light gray for less emphasis than pure white */
+  font-size: 12px;
+}
 
-  .assetControls {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
+/* Axis Ticks */
+.chartContainer :global(.recharts-cartesian-axis-tick-value) {
+  fill: #ccc;
+  font-size: 12px;
+}
 
-  .assetCheckbox {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    cursor: pointer;
-    padding: 5px 10px;
-    background-color: #3a414d;
-    border-radius: 4px;
-    transition: background-color 0.2s;
-  }
+/* Axis Lines */
+.chartContainer :global(.recharts-cartesian-axis-line) {
+  stroke: #666; /* Make axis lines visible but subtle */
+}
 
-  .assetCheckbox:hover {
-    background-color: #444954;
-  }
+/* Axis Labels (e.g., "Growth (%)") */
+.chartContainer :global(.recharts-label) {
+  fill: #f1f1f1; /* Main text color for labels */
+  font-size: 14px;
+}
 
-  .assetCheckbox input {
-    cursor: pointer;
-  }
+/* Grid Lines */
+.chartContainer :global(.recharts-cartesian-grid-line) line {
+  /* Use a subtle, semi-transparent white or light gray */
+  /* stroke: rgba(241, 241, 241, 0.15); */
+  stroke: #444954; /* A slightly lighter shade than the background */
+}
 
-  .rangeControl {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+/* Legend Text */
+.chartContainer :global(.recharts-legend-item-text) {
+  /* Use direct descendant selector for better specificity if needed */
+  /* fill is inherited from .recharts-text, but can override */
+  fill: #e0e0e0; /* Slightly off-white for legend */
+}
 
-  .slider {
-    flex: 1;
-    height: 6px;
-    -webkit-appearance: none;
-    appearance: none;
-    background: #444954;
-    outline: none;
-    border-radius: 3px;
-  }
+/* Optional: Hover effect on legend items */
+.chartContainer
+  :global(.recharts-legend-item):hover
+  :global(.recharts-legend-item-text) {
+  fill: #ffffff; /* Brighten on hover */
+  cursor: pointer;
+}
 
-  .slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: #f1f1f1;
-    cursor: pointer;
-  }
+/* Tooltip - Best styled via props, but fallback CSS can be added */
+/* These might be less reliable due to potential portal rendering */
+.chartContainer :global(.recharts-tooltip-wrapper) {
+  /* Styles applied via props are usually better */
+}
 
-  .slider::-moz-range-thumb {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: #f1f1f1;
-    cursor: pointer;
-  }
+/* --- Interactive Controls Styling --- */
+.controlsContainer {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #333842;
+  border-radius: 6px;
+  color: #f1f1f1;
+}
 
-  .rangeValue {
-    min-width: 80px;
-    text-align: right;
-  }
+.controlSection {
+  margin-bottom: 15px;
+}
 
-  .yearControls {
-    display: flex;
-    gap: 20px;
-  }
+.controlTitle {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #f1f1f1;
+}
 
-  .yearInput {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+.horizontalControl {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
 
-  .yearInput label {
-    min-width: 80px;
-  }
+.horizontalControl .controlTitle {
+  margin-bottom: 0;
+  min-width: 120px;
+}
 
-  .yearInput input {
-    width: 80px;
-    padding: 5px;
-    background-color: #3a414d;
-    border: 1px solid #444954;
-    border-radius: 4px;
-    color: #f1f1f1;
-    text-align: center;
-  }
+.assetControls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center; /* Center the asset options */
+}
 
-  .yearInput input:focus {
-    outline: none;
-    border-color: #5a6578;
-  }
+.assetCheckbox {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  padding: 5px 10px;
+  background-color: #3a414d;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
 
-  .noSelectionMessage {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 300px;
-    color: #f1f1f1;
-    font-size: 16px;
-    text-align: center;
-  }
+.assetCheckbox:hover {
+  background-color: #444954;
+}
+
+.assetCheckbox input {
+  cursor: pointer;
+}
+
+.rangeControl {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.slider {
+  flex: 1;
+  height: 6px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: #444954;
+  outline: none;
+  border-radius: 3px;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #f1f1f1;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #f1f1f1;
+  cursor: pointer;
+}
+
+.rangeValue {
+  min-width: 80px;
+  text-align: right;
+}
+
+.yearControls {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+}
+
+.yearInput {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.yearInput label {
+  min-width: 40px;
+}
+
+.yearInput input {
+  width: 80px;
+  padding: 5px;
+  background-color: #3a414d;
+  border: 1px solid #444954;
+  border-radius: 4px;
+  color: #f1f1f1;
+  text-align: center;
+}
+
+.yearInput input:focus {
+  outline: none;
+  border-color: #5a6578;
+}
+
+.noSelectionMessage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  color: #f1f1f1;
+  font-size: 16px;
+  text-align: center;
+}
