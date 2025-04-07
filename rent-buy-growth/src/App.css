@@ -17,7 +17,6 @@ h4 {
 .comparison-section {
   width: 100%; /* Make sections take full available width */
   max-width: 800px; /* Optional: constrain max width */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .comparison-section h2 {
