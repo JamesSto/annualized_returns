@@ -5,14 +5,15 @@
   width: 100%;
   height: 500px; /* Or adjust as needed */
   font-family: sans-serif; /* Basic font */
-  background-color: #2a303c; /* Match page background */
+  background-color: #ffffff;
   padding: 20px;
   border-radius: 8px; /* Optional: slight rounding */
   box-sizing: border-box; /* Include padding in width/height calculation */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 .chartTitle {
-  color: #f1f1f1;
+  color: #2d3748;
   margin-top: 0;
   margin-bottom: 0;
   text-align: center;
@@ -23,46 +24,42 @@
 
 /* General text elements within the chart SVG */
 .chartContainer :global(.recharts-text) {
-  fill: #ccc; /* Light gray for less emphasis than pure white */
+  fill: #4a5568;
   font-size: 12px;
 }
 
 /* Axis Ticks */
 .chartContainer :global(.recharts-cartesian-axis-tick-value) {
-  fill: #ccc;
+  fill: #4a5568;
   font-size: 12px;
 }
 
 /* Axis Lines */
 .chartContainer :global(.recharts-cartesian-axis-line) {
-  stroke: #666; /* Make axis lines visible but subtle */
+  stroke: #cbd5e0;
 }
 
 /* Axis Labels (e.g., "Growth (%)") */
 .chartContainer :global(.recharts-label) {
-  fill: #f1f1f1; /* Main text color for labels */
+  fill: #2d3748;
   font-size: 14px;
 }
 
 /* Grid Lines */
 .chartContainer :global(.recharts-cartesian-grid-line) line {
-  /* Use a subtle, semi-transparent white or light gray */
-  /* stroke: rgba(241, 241, 241, 0.15); */
-  stroke: #444954; /* A slightly lighter shade than the background */
+  stroke: #e2e8f0;
 }
 
 /* Legend Text */
 .chartContainer :global(.recharts-legend-item-text) {
-  /* Use direct descendant selector for better specificity if needed */
-  /* fill is inherited from .recharts-text, but can override */
-  fill: #e0e0e0; /* Slightly off-white for legend */
+  fill: #4a5568;
 }
 
 /* Optional: Hover effect on legend items */
 .chartContainer
   :global(.recharts-legend-item):hover
   :global(.recharts-legend-item-text) {
-  fill: #ffffff; /* Brighten on hover */
+  fill: #2d3748;
   cursor: pointer;
 }
 
@@ -76,9 +73,10 @@
 .controlsContainer {
   margin-top: 20px;
   padding: 15px;
-  background-color: #333842;
+  background-color: #ffffff;
   border-radius: 6px;
-  color: #f1f1f1;
+  color: #2d3748;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 .controlSection {
@@ -90,7 +88,7 @@
   margin-bottom: 10px;
   font-size: 16px;
   font-weight: 500;
-  color: #f1f1f1;
+  color: #2d3748;
 }
 
 .horizontalControl {
@@ -118,13 +116,15 @@
   gap: 5px;
   cursor: pointer;
   padding: 5px 10px;
-  background-color: #3a414d;
+  background-color: #f7fafc;
+  border: 1px solid #e2e8f0;
   border-radius: 4px;
-  transition: background-color 0.2s;
+  transition: all 0.2s;
 }
 
 .assetCheckbox:hover {
-  background-color: #444954;
+  background-color: #edf2f7;
+  border-color: #cbd5e0;
 }
 
 .assetCheckbox input {
@@ -143,7 +143,7 @@
   height: 6px;
   -webkit-appearance: none;
   appearance: none;
-  background: #444954;
+  background: #e2e8f0;
   outline: none;
   border-radius: 3px;
 }
@@ -154,21 +154,26 @@
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: #f1f1f1;
+  background: #4299e1;
   cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 .slider::-moz-range-thumb {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: #f1f1f1;
+  background: #4299e1;
   cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 .rangeValue {
   min-width: 80px;
   text-align: right;
+  color: #4a5568;
 }
 
 .yearControls {
@@ -180,21 +185,22 @@
 .yearInput {
   width: 70px;
   padding: 5px;
-  background-color: #3a414d;
-  border: 1px solid #444954;
+  background-color: #f7fafc;
+  border: 1px solid #e2e8f0;
   border-radius: 4px;
-  color: #f1f1f1;
+  color: #2d3748;
   text-align: center;
   font-size: 14px;
 }
 
 .yearInput:focus {
   outline: none;
-  border-color: #5a6578;
+  border-color: #4299e1;
+  box-shadow: 0 0 0 1px #4299e1;
 }
 
 .yearSeparator {
-  color: #f1f1f1;
+  color: #4a5568;
   font-size: 14px;
 }
 
