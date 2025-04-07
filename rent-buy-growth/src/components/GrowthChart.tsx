@@ -12,13 +12,35 @@ import {
   ResponsiveContainer,
   Label,
 } from "recharts";
-import {
-  ValueType,
-} from "recharts/types/component/DefaultTooltipContent";
+import { ValueType } from "recharts/types/component/DefaultTooltipContent";
 import { getChartDataForParams } from "../utils/GrowthProcessor";
 import { ASSET_COLORS, ASSET_NAMES, ASSETS } from "../utils/Constants";
 
-const GrowthChart: React.FC = () => {
+// Define the props type
+interface GrowthChartProps {
+  assets: ASSETS[];
+  periodSize: number;
+  startYear?: number;
+  endYear?: number;
+}
+
+const GrowthChart: React.FC<GrowthChartProps> = ({
+  // Destructure props here
+  assets,
+  periodSize,
+  startYear,
+  endYear,
+}) => {
+  const chartData = getChartDataForParams(
+    assets,
+    periodSize,
+    startYear,
+    endYear
+  );
+
+  if (!chartData || chartData.length === 0) {
+    return <div>Data file seems empty or invalid. Cannot display chart.</div>;
+  }
 
   const customTooltipFormatter = (
     value: ValueType
@@ -29,24 +51,18 @@ const GrowthChart: React.FC = () => {
     return "N/A";
   };
 
-  const chartData = getChartDataForParams(
-    [ASSETS.SP_500_INDEX, ASSETS.USSTHPI_PC1],
-    20,
-  );
-
-  if (!chartData || chartData.length === 0) {
-    return <div>Data file seems empty or invalid. Cannot display chart.</div>;
-  }
-
   return (
     // --- Apply CSS Module class to container ---
     <div className={styles.chartContainer}>
+      <h2 className={styles.chartTitle}>
+        Average Growth for Every {periodSize} Year Period {" "}
+        {startYear ?? 1977} - {endYear ?? 2024}
+      </h2>
       {/* --- Apply CSS Module class to title --- */}
       <ResponsiveContainer>
         <LineChart
           data={chartData}
           margin={{
-            top: 5, // Reduced top margin as title has margin
             right: 30, // Adjusted margins slightly
             left: 20,
             bottom: 35, // Keep space for angled labels
@@ -72,7 +88,7 @@ const GrowthChart: React.FC = () => {
               dy={20}
               style={{ textAnchor: "middle" }} // Keep textAnchor if needed
             />
-            </XAxis>
+          </XAxis>
           <YAxis
             tickLine={false} // Hide tick lines
             axisLine={true} // Show axis line (styled in CSS)
@@ -116,7 +132,7 @@ const GrowthChart: React.FC = () => {
           />
 
           {/* Lines updated to use asset mappings */}
-          {Object.keys(ASSETS).map((key: string) => (
+          {Object.values(assets).map((key: string) => (
             <Line
               key={key}
               type="monotone"

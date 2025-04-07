@@ -15,5 +15,3 @@ Inflation: https://fred.stlouisfed.org/graph/?g=1FETQ
 ![20 year nominal annualized since 1975](https://i.imgur.com/PWFRnSx.png)
 
 TODO:
-
-1. Values for US housing don't perfectly match my python script. Why?

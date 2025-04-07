@@ -40,19 +40,21 @@ for filename in os.listdir("data"):
 print(COLUMNS)
 
 # Load the data from the uploaded files
-sp500_returns = pd.read_csv('data/S&P 500 Annual Return (Nominal).csv')
-data_merged = pd.merge(data_merged, sp500_returns, on='YEAR', how='inner')
+if 'S&P 500 Annual Return (Nominal).csv' not in TO_SKIP:
+    sp500_returns = pd.read_csv('data/S&P 500 Annual Return (Nominal).csv')
+    data_merged = pd.merge(data_merged, sp500_returns, on='YEAR', how='inner')
 
 # Sort the merged data by YEAR to facilitate further analysis
 data_merged = data_merged.sort_values(by='YEAR').reset_index(drop=True)
 
-# Convert S&P 500 returns to index values, starting from 100
-curr = 100
-for i in range(len(data_merged)):
-    data_merged.loc[i, "SP500_INDEX"] = curr * (1 + data_merged.loc[i, 'RETURN']/100.0)
-    curr = data_merged.loc[i, "SP500_INDEX"]
+if 'S&P 500 Annual Return (Nominal).csv' not in TO_SKIP:
+    # Convert S&P 500 returns to index values, starting from 100
+    curr = 100
+    for i in range(len(data_merged)):
+        data_merged.loc[i, "SP500_INDEX"] = curr * (1 + data_merged.loc[i, 'RETURN']/100.0)
+        curr = data_merged.loc[i, "SP500_INDEX"]
 
-COLUMNS["SP500_INDEX"] = "S&P 500 Index"
+    COLUMNS["SP500_INDEX"] = "S&P 500 Index"
 
 # Adjust all data for inflation
 if ADJUST_FOR_INFLATION:
