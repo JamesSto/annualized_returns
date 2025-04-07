@@ -15,12 +15,18 @@ import {
 import {
   ValueType,
 } from "recharts/types/component/DefaultTooltipContent";
-import { processPercentiles } from "../utils/GrowthProcessor";
-import { rawData } from "../utils/GrowthProcessor";
-import { ASSET_COLORS, ASSET_NAMES } from "../utils/Constants";
+import { processPercentiles, rawData } from "../utils/GrowthProcessor";
+import { ASSET_COLORS, ASSET_NAMES, ASSETS } from "../utils/Constants";
 
 const GrowthChart: React.FC = () => {
-  const { chartData, dataKeys } = processPercentiles(rawData);
+  const processedData = new Map(
+    Object.entries(rawData).map(([year, dataByAsset]) => [
+      year,
+      new Map(Object.entries(dataByAsset).filter(([asset]) => asset !== 'INFLATION_RATE') as [ASSETS, number][])
+    ])
+  );
+  const { chartData } = processPercentiles(processedData);
+  console.log(chartData);
 
   const customTooltipFormatter = (
     value: ValueType
@@ -31,7 +37,7 @@ const GrowthChart: React.FC = () => {
     return "N/A";
   };
 
-  if (!chartData || chartData.length === 0 || dataKeys.length === 0) {
+  if (!chartData || chartData.length === 0) {
     return <div>Data file seems empty or invalid. Cannot display chart.</div>;
   }
 
@@ -54,7 +60,8 @@ const GrowthChart: React.FC = () => {
 
           {/* Axes ticks/lines/labels styled via CSS */}
           <XAxis
-            dataKey="year"
+            dataKey="percentile"
+            tickFormatter={(tickValue) => `${tickValue}%`}
             angle={-45}
             textAnchor="end"
             height={60}
@@ -62,7 +69,13 @@ const GrowthChart: React.FC = () => {
             tickLine={false} // Hide tick lines for cleaner look
             axisLine={true} // Show axis line (styled in CSS)
             // Removed inline tick styling
-          />
+          >
+            <Label
+              value="Growth Percentile"
+              dy={20}
+              style={{ textAnchor: "middle" }} // Keep textAnchor if needed
+            />
+            </XAxis>
           <YAxis
             tickLine={false} // Hide tick lines
             axisLine={true} // Show axis line (styled in CSS)
@@ -106,7 +119,7 @@ const GrowthChart: React.FC = () => {
           />
 
           {/* Lines updated to use asset mappings */}
-          {dataKeys.map((key: string) => (
+          {Object.keys(ASSETS).map((key: string) => (
             <Line
               key={key}
               type="monotone"

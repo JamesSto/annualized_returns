@@ -1,62 +1,60 @@
+import { ASSETS } from "./Constants"
 import percentile from "percentile";
-import rawDataFromFile from "../assets/asset_data.json"; // Adjust path if needed
+import rawDataFromFile from "../assets/asset_data.json"
+
+interface YearData extends Record<ASSETS, number> {
+  INFLATION_RATE: number;
+}
 
 export const rawData: RawDataType = rawDataFromFile;
 
-interface YearData {
-  USSTHPI_PC1: number;
-  CASTHPI_PC1: number;
-  NYSTHPI_PC1: number;
-  ATNHPIUS41884Q_PC1: number;
-  ATNHPIUS35614Q_PC1: number;
-  FLSTHPI_PC1: number;
-  ATNHPIUS33124Q_PC1: number;
-  INFLATION_RATE: number;
-  SP_500_INDEX: number;
+interface ChartDataType extends Record<ASSETS, number> {
+  percentile: number;
 }
 
 interface RawDataType {
   [year: string]: YearData;
 }
 
-interface ChartDataType extends YearData {
-  percentile: string;
-}
-
+/**
+ * Takes in the growth values for each year and converts it to a list of growth percentiles.
+ * 
+ * The input to this may be "annualized growth the twenty years preceding this given year' or similar.
+ */
 export const processPercentiles = (
-  data: RawDataType
-): { chartData: ChartDataType[]; dataKeys: string[] } => {
+  dataByYear: Map<string, Map<ASSETS, number>>
+): { chartData: ChartDataType[] } => {
   const target_percentiles = Array.from({ length: 21 }, (_, i) => i * 5);
-  const annual_growths: { [asset: string]: number[] } = {};
-  for (const year in data) {
-    const yearData = rawData[year];
-    for (const asset of Object.keys(yearData) as (keyof YearData)[]) {
-      if (!annual_growths[asset]) {
-        annual_growths[asset] = [];
+  const annual_growths: Map<ASSETS, number[]> = new Map();
+  for (const [, growthByAsset] of dataByYear) {
+    for (const [asset, value] of growthByAsset) {
+      if (!annual_growths.has(asset)) {
+        annual_growths.set(asset, []);
       }
-      annual_growths[asset].push(yearData[asset]);
+      annual_growths.get(asset)!.push(value);
     }
   }
-  const growth_percentiles: {
-    [asset: string]: { [percentile: number]: number };
-  } = {};
-  for (const asset of Object.keys(annual_growths) as (keyof YearData)[]) {
-    growth_percentiles[asset] = {};
+  const growth_percentiles: Map<ASSETS, Map<number, number>> = new Map();
+  for (const asset of annual_growths.keys()) {
+    growth_percentiles.set(asset, new Map());
     const asset_percentiles = percentile(
       target_percentiles,
-      annual_growths[asset]
+      annual_growths.get(asset)!
     ) as number[];
     for (let i = 0; i < target_percentiles.length; i++) {
-      growth_percentiles[asset][target_percentiles[i]] = asset_percentiles[i];
+      growth_percentiles.get(asset)!.set(target_percentiles[i], asset_percentiles[i]);
     }
   }
   const chartData: ChartDataType[] = target_percentiles.map((p) => {
-    const result: ChartDataType = { percentile: p.toString() } as ChartDataType;
-    for (const asset of Object.keys(annual_growths) as (keyof YearData)[]) {
-      result[asset] = growth_percentiles[asset][p];
+    const result: ChartDataType = {
+      percentile: p
+    } as ChartDataType;
+    
+    for (const asset of annual_growths.keys()) {
+      result[asset] = growth_percentiles.get(asset)!.get(p)!;
     }
+    
     return result;
   });
-  const dataKeys: string[] = Object.keys(annual_growths);
-  return { chartData, dataKeys };
+  return { chartData };
 };

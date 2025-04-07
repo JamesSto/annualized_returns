@@ -9,7 +9,7 @@ function App() {
         <a href="/">Tinker Deck</a>
       </header>
       <main>
-        <h1>Rent vs Buy: What's the Real Growth Story?</h1>
+        <h1>Questioning Growth Assumptions in Nerdwallet/NYTimes Rent vs Buy Calculators</h1>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
           posuere leo id dolor commodo, in viverra erat dictum. Nullam id magna
