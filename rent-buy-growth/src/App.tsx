@@ -24,8 +24,8 @@ function App() {
           And an interactive tool to explore housing and asset growth rates
         </h4>
         <p className="no-margin-bottom">
-          I think that both <strong>NYTimes</strong> and{" "}
-          <strong>NerdWallet</strong> skew optimistic on housing growth and
+          I think that both NYTimes and{" "}
+          NerdWallet skew optimistic on housing growth and
           pessimistic on other asset growth. Because these core assumptions are
           exponential, they're some of the most sensitive assumptions underlying
           the tools – and small changes, or medium ones like the ones I'm
@@ -36,7 +36,7 @@ function App() {
           <div className="comparison-section">
             <div className="comparison-images">
               <div className="image-block">
-                <h3>NYTimes</h3>
+                <h3>New York Times</h3>
                 <p>
                   Housing: 3%
                   <br />
@@ -132,7 +132,7 @@ function App() {
           with it yourself.
         </p>{" "}
         <p>
-          As you can see, 6% growth is the 4th percentile for S&amp;P 500
+          As you can see, 6% growth is the 5th percentile for S&amp;P 500
           returns. That's quite conservative, but it's a defensible choice – you
           should probably plan your finances assuming slow growth, because if
           growth goes well hopefully things will be pretty good no matter what

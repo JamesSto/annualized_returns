@@ -22,14 +22,14 @@ export const ASSET_NAMES: Record<string, string> = {
 
 
 export const ASSET_COLORS: Record<string, string> = {
-  [ASSETS.USSTHPI_PC1]: "#FF6B6B", // Bright coral red
-  [ASSETS.CASTHPI_PC1]: "#4ECDC4", // Bright turquoise
+  [ASSETS.USSTHPI_PC1]: "#9B59B6", // Purple
+  [ASSETS.CASTHPI_PC1]: "#FF6B6B", // Bright coral red
   [ASSETS.NYSTHPI_PC1]: "#FFE66D", // Bright yellow
   [ASSETS.ATNHPIUS41884Q_PC1]: "#FF8C42", // Bright orange
-  [ASSETS.ATNHPIUS35614Q_PC1]: "#9B59B6", // Purple
+  [ASSETS.ATNHPIUS35614Q_PC1]: "#4ECDC4", // Bright turquoise
   [ASSETS.ATNHPIUS33124Q_PC1]: "#96F550", // Lime green
   [ASSETS.FLSTHPI_PC1]: "#FF69B4", // Hot pink
-  [ASSETS.SP_500_INDEX]: "#2ECC71", // Emerald green
+  [ASSETS.SP_500_INDEX]: "#28b564", // Emerald green
 };
 
 export const ASSET_TOOLTIP_TEXTS: Record<string, string> = {

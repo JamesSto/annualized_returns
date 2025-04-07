@@ -120,14 +120,9 @@ const GrowthChart: React.FC<GrowthChartProps> = ({
         Annualized Growth for Every {periodSize} Year Period {startYear ?? 1977} -{" "}
         {endYear ?? 2024}
       </h2>
-      <ResponsiveContainer>
+      <ResponsiveContainer width="100%" height={500}>
         <LineChart
           data={chartData}
-          margin={{
-            right: 30,
-            left: 20,
-            bottom: 35,
-          }}
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
