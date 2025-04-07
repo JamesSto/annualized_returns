@@ -64,7 +64,7 @@ const InteractiveGrowthChart: React.FC = () => {
 
   return (
     <>
-      <div className={styles.chartContainer}>
+      <div>
         <GrowthChart
           assets={selectedAssets}
           periodSize={periodSize}
@@ -96,7 +96,7 @@ const InteractiveGrowthChart: React.FC = () => {
               <input
                 type="range"
                 min="1"
-                max="30"
+                max="48"
                 value={periodSize}
                 onChange={handlePeriodSizeChange}
                 className={styles.slider}
