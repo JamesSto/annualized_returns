@@ -12,11 +12,11 @@ export enum ASSETS {
 export const ASSET_NAMES: Record<string, string> = {
   [ASSETS.USSTHPI_PC1]: "US Homes",
   [ASSETS.CASTHPI_PC1]: "California Homes",
-  [ASSETS.NYSTHPI_PC1]: "NY State Homes",
-  [ASSETS.ATNHPIUS41884Q_PC1]: "SF Homes",
-  [ASSETS.ATNHPIUS35614Q_PC1]: "NYC Homes",
+  [ASSETS.NYSTHPI_PC1]: "New York State Homes",
+  [ASSETS.ATNHPIUS41884Q_PC1]: "San Francisco Homes",
+  [ASSETS.ATNHPIUS35614Q_PC1]: "New York City Homes",
   [ASSETS.ATNHPIUS33124Q_PC1]: "Miami Homes",
-  [ASSETS.FLSTHPI_PC1]: "FL Homes",
+  [ASSETS.FLSTHPI_PC1]: "Florida Homes",
   [ASSETS.SP_500_INDEX]: "S&P 500",
 };
 

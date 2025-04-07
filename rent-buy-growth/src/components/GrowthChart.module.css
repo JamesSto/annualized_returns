@@ -69,3 +69,128 @@
   .chartContainer :global(.recharts-tooltip-wrapper) {
     /* Styles applied via props are usually better */
   }
+
+  /* --- Interactive Controls Styling --- */
+  .controlsContainer {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #333842;
+    border-radius: 6px;
+    color: #f1f1f1;
+  }
+
+  .controlSection {
+    margin-bottom: 15px;
+  }
+
+  .controlTitle {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #f1f1f1;
+  }
+
+  .assetControls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .assetCheckbox {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    padding: 5px 10px;
+    background-color: #3a414d;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+  }
+
+  .assetCheckbox:hover {
+    background-color: #444954;
+  }
+
+  .assetCheckbox input {
+    cursor: pointer;
+  }
+
+  .rangeControl {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .slider {
+    flex: 1;
+    height: 6px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: #444954;
+    outline: none;
+    border-radius: 3px;
+  }
+
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #f1f1f1;
+    cursor: pointer;
+  }
+
+  .slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #f1f1f1;
+    cursor: pointer;
+  }
+
+  .rangeValue {
+    min-width: 80px;
+    text-align: right;
+  }
+
+  .yearControls {
+    display: flex;
+    gap: 20px;
+  }
+
+  .yearInput {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .yearInput label {
+    min-width: 80px;
+  }
+
+  .yearInput input {
+    width: 80px;
+    padding: 5px;
+    background-color: #3a414d;
+    border: 1px solid #444954;
+    border-radius: 4px;
+    color: #f1f1f1;
+    text-align: center;
+  }
+
+  .yearInput input:focus {
+    outline: none;
+    border-color: #5a6578;
+  }
+
+  .noSelectionMessage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    color: #f1f1f1;
+    font-size: 16px;
+    text-align: center;
+  }

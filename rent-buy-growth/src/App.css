@@ -1,7 +1,10 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+h1 {
+    margin: 0;
+}
+
+h4 {
+    margin: 0;
+    color: #bababa;
 }
 
 /* Additions for comparison section */
@@ -14,7 +17,7 @@
 .comparison-section {
   width: 100%; /* Make sections take full available width */
   max-width: 800px; /* Optional: constrain max width */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .comparison-section h2 {
@@ -57,4 +60,8 @@
 
 .logo {
   height: 6em;
+}
+
+.no-margin-bottom {
+    margin-bottom: 0;
 }

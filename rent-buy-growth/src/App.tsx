@@ -2,6 +2,7 @@
 import "./App.css";
 import { ASSETS } from "./utils/Constants"
 import GrowthChart from "./components/GrowthChart";
+import InteractiveGrowthChart from "./components/InteractiveGrowthChart";
 
 import nytBefore from "./assets/nyt_before.png";
 import nytAfter from "./assets/nyt_after.png";
@@ -16,7 +17,8 @@ function App() {
       </header>
       <main>
         <h1>Questioning a Core Assumption of the Nerdwallet & NYTimes Rent vs Buy Calculators</h1>{" "}
-        <p>
+        <h4>And an interactive tool to explore housing and asset growth rates</h4>
+        <p className="no-margin-bottom">
           I'll cut to the chase – I think that both <strong>NYTimes</strong> and{" "}
           <strong>NerdWallet</strong> skew optimistic on housing growth, and
           pessimistic on other asset growth. Because these core assumptions are
@@ -256,7 +258,14 @@ function App() {
           Area, so I'll probably adjust for specific local housing numbers at
           least some.
         </p>{" "}
-        <div>(Final interactive graph)</div>
+        <div>
+          <h2>Interactive Growth Chart</h2>
+          <p>
+            Use this interactive tool to explore historical growth rates for different assets over various time periods.
+            Select the assets you want to compare, adjust the period size, and set your preferred year range.
+          </p>
+          <InteractiveGrowthChart />
+        </div>
       </main>
     </div>
   );
