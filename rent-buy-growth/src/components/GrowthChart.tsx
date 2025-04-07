@@ -120,9 +120,16 @@ const GrowthChart: React.FC<GrowthChartProps> = ({
         Annualized Growth for Every {periodSize} Year Period {startYear ?? 1977} -{" "}
         {endYear ?? 2024}
       </h2>
-      <ResponsiveContainer width="100%" height={500}>
+      <ResponsiveContainer 
+        width="100%" 
+        height={window?.innerWidth < 768 ? 400 : 500}
+      >
         <LineChart
           data={chartData}
+          margin={{ 
+            right: 20,
+            bottom: 20,
+          }}
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
@@ -130,23 +137,32 @@ const GrowthChart: React.FC<GrowthChartProps> = ({
             tickFormatter={(tickValue) => `${tickValue}%`}
             angle={-45}
             textAnchor="end"
-            height={60}
-            interval="preserveStartEnd"
+            height={window?.innerWidth < 768 ? 60 : 50}
+            interval={window?.innerWidth < 768 ? 1 : "preserveStartEnd"}
             tickLine={false}
             axisLine={true}
+            fontSize={window?.innerWidth < 768 ? 10 : 12}
           >
             <Label
               value="Growth Percentile"
-              dy={20}
-              style={{ textAnchor: "middle" }}
+              dy={window?.innerWidth < 768 ? 30 : 25}
+              style={{ textAnchor: "middle", fontSize: window?.innerWidth < 768 ? "0.8rem" : "1rem" }}
             />
           </XAxis>
-          <YAxis tickLine={false} axisLine={true}>
+          <YAxis 
+            tickLine={false} 
+            axisLine={true}
+            fontSize={window?.innerWidth < 768 ? 10 : 12}
+          >
             <Label
               value="Nominal Growth %"
               angle={-90}
+              dx={10}
               position="insideLeft"
-              style={{ textAnchor: "middle" }}
+              style={{ 
+                textAnchor: "middle", 
+                fontSize: window?.innerWidth < 768 ? "0.8rem" : "1rem"
+              }}
             />
           </YAxis>
 
@@ -164,14 +180,12 @@ const GrowthChart: React.FC<GrowthChartProps> = ({
             labelStyle={{
               color: "#ffffff",
               fontWeight: "bold",
-              marginBottom: "5px",
             }}
             itemStyle={{ paddingTop: "2px", paddingBottom: "2px" }}
           />
 
           <Legend
             verticalAlign="top"
-            wrapperStyle={{ paddingBottom: "20px" }}
             content={<CustomLegend />}
           />
 
