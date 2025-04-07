@@ -1,7 +1,5 @@
 import React from "react";
-import percentile from "percentile";
 import styles from "./GrowthChart.module.css"; // Adjust path if needed
-import rawDataFromFile from "../assets/asset_data.json"; // Adjust path if needed
 
 import {
   LineChart,
@@ -13,104 +11,19 @@ import {
   Legend,
   ResponsiveContainer,
   Label,
-  TooltipProps,
 } from "recharts";
 import {
-  NameType,
   ValueType,
 } from "recharts/types/component/DefaultTooltipContent";
-
-const ASSET_COLORS: Record<string, string> = {
-    USSTHPI_PC1: "#FF6B6B",      // Bright coral red
-    CASTHPI_PC1: "#4ECDC4",      // Bright turquoise
-    NYSTHPI_PC1: "#FFE66D",      // Bright yellow
-    ATNHPIUS41884Q_PC1: "#FF8C42", // Bright orange
-    ATNHPIUS35614Q_PC1: "#9B59B6", // Purple
-    ATNHPIUS33124Q_PC1: "#96F550", // Lime green
-    FLSTHPI_PC1: "#FF69B4",      // Hot pink
-    INFLATION_RATE: "#B388FF",    // Bright purple
-    SP_500_INDEX: "#2ECC71",      // Emerald green
-};
-
-const ASSET_NAMES: Record<string, string> = {
-  USSTHPI_PC1: "US Homes",
-  CASTHPI_PC1: "California Homes",
-  NYSTHPI_PC1: "NY State Homes",
-  ATNHPIUS41884Q_PC1: "SF Homes",
-  ATNHPIUS35614Q_PC1: "NYC Homes",
-  ATNHPIUS33124Q_PC1: "Miami Homes",
-  FLSTHPI_PC1: "FL Homes",
-  INFLATION_RATE: "Inflation",
-  SP_500_INDEX: "S&P 500",
-};
-
-interface YearData {
-  USSTHPI_PC1: number;
-  CASTHPI_PC1: number;
-  NYSTHPI_PC1: number;
-  ATNHPIUS41884Q_PC1: number;
-  ATNHPIUS35614Q_PC1: number;
-  FLSTHPI_PC1: number;
-  ATNHPIUS33124Q_PC1: number;
-  INFLATION_RATE: number;
-  SP_500_INDEX: number;
-}
-
-interface RawDataType {
-  [year: string]: YearData;
-}
-
-interface ChartDataType extends YearData {
-  percentile: string;
-}
-
-const rawData: RawDataType = rawDataFromFile;
-
-const processPercentiles = (
-  data: RawDataType
-): { chartData: ChartDataType[]; dataKeys: string[] } => {
-  const target_percentiles = Array.from({ length: 21 }, (_, i) => i * 5);
-  const annual_growths: { [asset: string]: number[] } = {};
-  for (const year in data) {
-    const yearData = rawData[year];
-    for (const asset of Object.keys(yearData) as (keyof YearData)[]) {
-      if (!annual_growths[asset]) {
-        annual_growths[asset] = [];
-      }
-      annual_growths[asset].push(yearData[asset]);
-    }
-  }
-  const growth_percentiles: {
-    [asset: string]: { [percentile: number]: number };
-  } = {};
-  for (const asset of Object.keys(annual_growths) as (keyof YearData)[]) {
-    growth_percentiles[asset] = {};
-    const asset_percentiles: number[] = percentile(
-      target_percentiles,
-      annual_growths[asset]
-    );
-    for (let i = 0; i < target_percentiles.length; i++) {
-      growth_percentiles[asset][target_percentiles[i]] = asset_percentiles[i];
-    }
-  }
-  const chartData: ChartDataType[] = target_percentiles.map((p) => {
-    const result: ChartDataType = { percentile: p.toString() } as ChartDataType;
-    for (const asset of Object.keys(annual_growths) as (keyof YearData)[]) {
-      result[asset] = growth_percentiles[asset][p];
-    }
-    return result;
-  });
-  const dataKeys: string[] = Object.keys(annual_growths);
-  return { chartData, dataKeys };
-};
+import { processPercentiles } from "../utils/GrowthProcessor";
+import { rawData } from "../utils/GrowthProcessor";
+import { ASSET_COLORS, ASSET_NAMES } from "../utils/Constants";
 
 const GrowthChart: React.FC = () => {
   const { chartData, dataKeys } = processPercentiles(rawData);
 
   const customTooltipFormatter = (
-    value: ValueType,
-    name: NameType,
-    props: TooltipProps<ValueType, NameType>
+    value: ValueType
   ): string | React.ReactNode => {
     if (typeof value === "number") {
       return `${value.toFixed(2)}%`;
@@ -193,7 +106,7 @@ const GrowthChart: React.FC = () => {
           />
 
           {/* Lines updated to use asset mappings */}
-          {dataKeys.map((key) => (
+          {dataKeys.map((key: string) => (
             <Line
               key={key}
               type="monotone"
