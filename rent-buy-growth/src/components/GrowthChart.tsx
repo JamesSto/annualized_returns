@@ -30,7 +30,7 @@ const GrowthChart: React.FC = () => {
   };
 
   const chartData = getChartDataForParams(
-    Object.values(ASSETS),
+    [ASSETS.SP_500_INDEX, ASSETS.USSTHPI_PC1],
     20,
   );
 
