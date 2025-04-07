@@ -15,18 +15,10 @@ import {
 import {
   ValueType,
 } from "recharts/types/component/DefaultTooltipContent";
-import { processPercentiles, rawData } from "../utils/GrowthProcessor";
+import { getChartDataForParams } from "../utils/GrowthProcessor";
 import { ASSET_COLORS, ASSET_NAMES, ASSETS } from "../utils/Constants";
 
 const GrowthChart: React.FC = () => {
-  const processedData = new Map(
-    Object.entries(rawData).map(([year, dataByAsset]) => [
-      year,
-      new Map(Object.entries(dataByAsset).filter(([asset]) => asset !== 'INFLATION_RATE') as [ASSETS, number][])
-    ])
-  );
-  const { chartData } = processPercentiles(processedData);
-  console.log(chartData);
 
   const customTooltipFormatter = (
     value: ValueType
@@ -36,6 +28,11 @@ const GrowthChart: React.FC = () => {
     }
     return "N/A";
   };
+
+  const chartData = getChartDataForParams(
+    Object.values(ASSETS),
+    20,
+  );
 
   if (!chartData || chartData.length === 0) {
     return <div>Data file seems empty or invalid. Cannot display chart.</div>;
