@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./GrowthChart.module.css"; // Adjust path if needed
 
 import {
@@ -14,7 +14,13 @@ import {
 } from "recharts";
 import { ValueType } from "recharts/types/component/DefaultTooltipContent";
 import { getChartDataForParams } from "../utils/GrowthProcessor";
-import { ASSET_COLORS, ASSET_NAMES, ASSETS } from "../utils/Constants";
+import {
+  ASSET_COLORS,
+  ASSET_NAMES,
+  ASSET_TOOLTIP_TEXTS,
+  ASSETS,
+  ASSET_LINKS,
+} from "../utils/Constants";
 
 // Define the props type
 interface GrowthChartProps {
@@ -23,6 +29,56 @@ interface GrowthChartProps {
   startYear?: number;
   endYear?: number;
 }
+
+// Define types for the Legend component
+interface LegendPayloadItem {
+  value: string;
+  type: string;
+  id: string;
+  color: string;
+  dataKey: string;
+}
+
+interface CustomLegendProps {
+  payload?: LegendPayloadItem[];
+}
+
+// Custom Legend component with tooltips
+const CustomLegend: React.FC<CustomLegendProps> = (props) => {
+  const [activeItem, setActiveItem] = useState<string | null>(null);
+
+  const { payload = [] } = props;
+  console.log(payload);
+  return (
+    <div className={styles.legendContainer}>
+      {payload.map((entry, index) => (
+        <a target="_blank" href={ASSET_LINKS[entry.dataKey]}>
+          <div key={`item-${index}`} className={styles.legendItem}>
+            <span
+              className={styles.legendText}
+              onMouseEnter={() => setActiveItem(entry.value)}
+              onMouseLeave={() => setActiveItem(null)}
+            >
+              <span
+                className={styles.legendMarker}
+                style={{ backgroundColor: entry.color }}
+              />
+              <span style={{ color: entry.color }}>{entry.value}</span>
+              <span className={styles.infoIcon} style={{ color: entry.color }}>
+                ⓘ
+              </span>
+            </span>
+            {activeItem === entry.value && (
+              <div className={styles.legendTooltip}>
+                {ASSET_TOOLTIP_TEXTS[entry.dataKey]}
+              </div>
+            )}
+          </div>
+        </a>
+      ))}
+    </div>
+  );
+};
 
 const GrowthChart: React.FC<GrowthChartProps> = ({
   // Destructure props here
@@ -40,17 +96,9 @@ const GrowthChart: React.FC<GrowthChartProps> = ({
 
   let chartData;
   if (isValidRange()) {
-    chartData = getChartDataForParams(
-      assets,
-      periodSize,
-      startYear,
-      endYear
-    );
+    chartData = getChartDataForParams(assets, periodSize, startYear, endYear);
   } else {
-    chartData = getChartDataForParams(
-      [],
-      periodSize,
-    );
+    chartData = getChartDataForParams([], periodSize);
   }
 
   if (!chartData || chartData.length === 0) {
@@ -129,6 +177,7 @@ const GrowthChart: React.FC<GrowthChartProps> = ({
           <Legend
             verticalAlign="top"
             wrapperStyle={{ paddingBottom: "20px" }}
+            content={<CustomLegend />}
           />
 
           {Object.values(isValidRange() ? assets : []).map((key: string) => (

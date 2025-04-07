@@ -31,3 +31,26 @@ export const ASSET_COLORS: Record<string, string> = {
   [ASSETS.FLSTHPI_PC1]: "#FF69B4", // Hot pink
   [ASSETS.SP_500_INDEX]: "#2ECC71", // Emerald green
 };
+
+export const ASSET_TOOLTIP_TEXTS: Record<string, string> = {
+  [ASSETS.USSTHPI_PC1]: "US House Price Index",
+  [ASSETS.CASTHPI_PC1]: "CA House Price Index",
+  [ASSETS.NYSTHPI_PC1]: "NY State House Price Index",
+  [ASSETS.ATNHPIUS41884Q_PC1]: "Miami House Price Index",
+  [ASSETS.ATNHPIUS35614Q_PC1]: "SF House Price Index",
+  [ASSETS.ATNHPIUS33124Q_PC1]: "NYC House Price Index",
+  [ASSETS.FLSTHPI_PC1]: "FL State House Price Index",
+  [ASSETS.SP_500_INDEX]: "S&P 500 Growth, Dividends Reinvested",
+};
+
+
+export const ASSET_LINKS: Record<string, string> = {
+  [ASSETS.USSTHPI_PC1]: "https://fred.stlouisfed.org/graph/?g=1FEU3",
+  [ASSETS.CASTHPI_PC1]: "https://fred.stlouisfed.org/graph/?g=1FEU3",
+  [ASSETS.NYSTHPI_PC1]: "Index https://fred.stlouisfed.org/graph/?g=1FEU3",
+  [ASSETS.ATNHPIUS41884Q_PC1]: "https://fred.stlouisfed.org/graph/?g=1FEU3",
+  [ASSETS.ATNHPIUS35614Q_PC1]: "https://fred.stlouisfed.org/graph/?g=1FEU3",
+  [ASSETS.ATNHPIUS33124Q_PC1]: "https://fred.stlouisfed.org/graph/?g=1FEU3",
+  [ASSETS.FLSTHPI_PC1]: "https://fred.stlouisfed.org/graph/?g=1FEU3",
+  [ASSETS.SP_500_INDEX]: "https://pages.stern.nyu.edu/~adamodar/New_Home_Page/datafile/histretSP.html",
+};
