@@ -15,3 +15,12 @@ Inflation: https://fred.stlouisfed.org/graph/?g=1FETQ
 ![20 year nominal annualized since 1975](https://i.imgur.com/PWFRnSx.png)
 
 TODO:
+
+1. Fetch json data instead of importing it?
+2. Inflation adjustment toggle
+
+MAYBE:
+
+1. Mix stocks/bonds?
+2. Optional housing volatility factor?
+3. Update CSS for tinkerdeck to a light theme too
