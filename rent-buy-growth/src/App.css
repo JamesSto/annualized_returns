@@ -1,0 +1,60 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Additions for comparison section */
+.comparison-container {
+  display: flex;
+  flex-direction: column; /* Stack sections vertically */
+  align-items: center; /* Center sections horizontally */
+}
+
+.comparison-section {
+  width: 100%; /* Make sections take full available width */
+  max-width: 800px; /* Optional: constrain max width */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.comparison-section h2 {
+  margin-top: 0;
+  text-align: center;
+}
+
+.comparison-images {
+  display: flex;
+  justify-content: space-around; /* Space out images */
+  gap: 1rem; /* Space between images */
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.image-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1; /* Allow blocks to grow and shrink */
+  min-width: 250px; /* Minimum width before wrapping */
+}
+
+.image-block h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.1em;
+}
+
+.image-block p {
+  font-size: 0.9em;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.image-block img {
+  max-width: 100%;
+  height: auto;
+  margin-top: 0.5rem;
+}
+
+.logo {
+  height: 6em;
+}
