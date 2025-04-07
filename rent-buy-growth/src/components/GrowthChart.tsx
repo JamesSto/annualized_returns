@@ -28,15 +28,30 @@ const GrowthChart: React.FC<GrowthChartProps> = ({
   // Destructure props here
   assets,
   periodSize,
-  startYear,
-  endYear,
+  startYear = 1977,
+  endYear = 2024,
 }) => {
-  const chartData = getChartDataForParams(
-    assets,
-    periodSize,
-    startYear,
-    endYear
-  );
+  // Validate parameters
+  const isValidRange = () => {
+    if (startYear > endYear) return false;
+    if (endYear - startYear < periodSize - 1) return false;
+    return true;
+  };
+
+  let chartData;
+  if (isValidRange()) {
+    chartData = getChartDataForParams(
+      assets,
+      periodSize,
+      startYear,
+      endYear
+    );
+  } else {
+    chartData = getChartDataForParams(
+      [],
+      periodSize,
+    );
+  }
 
   if (!chartData || chartData.length === 0) {
     return <div>Data file seems empty or invalid. Cannot display chart.</div>;
@@ -52,26 +67,21 @@ const GrowthChart: React.FC<GrowthChartProps> = ({
   };
 
   return (
-    // --- Apply CSS Module class to container ---
     <div className={styles.chartContainer}>
       <h2 className={styles.chartTitle}>
-        Average Growth for Every {periodSize} Year Period {" "}
-        {startYear ?? 1977} - {endYear ?? 2024}
+        Average Growth for Every {periodSize} Year Period {startYear ?? 1977} -{" "}
+        {endYear ?? 2024}
       </h2>
-      {/* --- Apply CSS Module class to title --- */}
       <ResponsiveContainer>
         <LineChart
           data={chartData}
           margin={{
-            right: 30, // Adjusted margins slightly
+            right: 30,
             left: 20,
-            bottom: 35, // Keep space for angled labels
+            bottom: 35,
           }}
         >
-          {/* Grid lines are styled via CSS */}
           <CartesianGrid strokeDasharray="3 3" />
-
-          {/* Axes ticks/lines/labels styled via CSS */}
           <XAxis
             dataKey="percentile"
             tickFormatter={(tickValue) => `${tickValue}%`}
@@ -79,60 +89,49 @@ const GrowthChart: React.FC<GrowthChartProps> = ({
             textAnchor="end"
             height={60}
             interval="preserveStartEnd"
-            tickLine={false} // Hide tick lines for cleaner look
-            axisLine={true} // Show axis line (styled in CSS)
-            // Removed inline tick styling
+            tickLine={false}
+            axisLine={true}
           >
             <Label
               value="Growth Percentile"
               dy={20}
-              style={{ textAnchor: "middle" }} // Keep textAnchor if needed
+              style={{ textAnchor: "middle" }}
             />
           </XAxis>
-          <YAxis
-            tickLine={false} // Hide tick lines
-            axisLine={true} // Show axis line (styled in CSS)
-            // Removed inline tick styling
-          >
-            {/* Label styled via CSS, but position props remain */}
+          <YAxis tickLine={false} axisLine={true}>
             <Label
               value="Nominal Growth %"
               angle={-90}
               position="insideLeft"
-              // Removed inline style prop
-              style={{ textAnchor: "middle" }} // Keep textAnchor if needed
+              style={{ textAnchor: "middle" }}
             />
           </YAxis>
 
-          {/* Tooltip: Style background/text via props for reliability */}
           <Tooltip
             formatter={customTooltipFormatter}
-            cursor={{ stroke: "#aaa", strokeDasharray: "3 3" }} // Style hover cursor line
+            cursor={{ stroke: "#aaa", strokeDasharray: "3 3" }}
             contentStyle={{
-              // Styles for the tooltip box itself
-              backgroundColor: "rgba(40, 45, 60, 0.85)", // Slightly transparent dark background
+              backgroundColor: "rgba(40, 45, 60, 0.85)",
               borderColor: "#666",
               borderRadius: "4px",
-              color: "#f1f1f1", // Ensure text color is light
+              color: "#f1f1f1",
               fontSize: "13px",
-              boxShadow: "0 2px 5px rgba(0,0,0,0.3)", // Optional shadow
+              boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
             }}
             labelStyle={{
               color: "#ffffff",
               fontWeight: "bold",
               marginBottom: "5px",
-            }} // Style the year label
-            itemStyle={{ paddingTop: "2px", paddingBottom: "2px" }} // Spacing for items
+            }}
+            itemStyle={{ paddingTop: "2px", paddingBottom: "2px" }}
           />
 
-          {/* Legend styled via CSS */}
           <Legend
             verticalAlign="top"
             wrapperStyle={{ paddingBottom: "20px" }}
           />
 
-          {/* Lines updated to use asset mappings */}
-          {Object.values(assets).map((key: string) => (
+          {Object.values(isValidRange() ? assets : []).map((key: string) => (
             <Line
               key={key}
               type="monotone"
@@ -140,7 +139,7 @@ const GrowthChart: React.FC<GrowthChartProps> = ({
               stroke={ASSET_COLORS[key]}
               activeDot={{ r: 6, stroke: "#fff", strokeWidth: 1 }}
               dot={false}
-              name={ASSET_NAMES[key]} // Use human-readable name here
+              name={ASSET_NAMES[key]}
               connectNulls={true}
               strokeWidth={1.5}
             />

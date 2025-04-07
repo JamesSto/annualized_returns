@@ -33,15 +33,32 @@ const InteractiveGrowthChart: React.FC = () => {
   // Handle year range changes
   const handleStartYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value);
-    if (!isNaN(value) && value >= 1977 && value < endYear) {
+    if (!isNaN(value)) {
       setStartYear(value);
     }
   };
 
   const handleEndYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value);
-    if (!isNaN(value) && value <= 2024 && value > startYear) {
+    if (!isNaN(value)) {
       setEndYear(value);
+    }
+  };
+
+  // Validate years on blur
+  const handleStartYearBlur = () => {
+    if (startYear < 1977) {
+      setStartYear(1977);
+    } else if (startYear >= endYear) {
+      setStartYear(endYear - 1);
+    }
+  };
+
+  const handleEndYearBlur = () => {
+    if (endYear > 2024) {
+      setEndYear(2024);
+    } else if (endYear <= startYear) {
+      setEndYear(startYear + 1);
     }
   };
 
@@ -93,26 +110,25 @@ const InteractiveGrowthChart: React.FC = () => {
           <div className={styles.horizontalControl}>
             <h3 className={styles.controlTitle}>From:</h3>
             <div className={styles.yearControls}>
-              <div className={styles.yearInput}>
-                <label></label>
-                <input
-                  type="number"
-                  min="1977"
-                  max={endYear - 1}
-                  value={startYear}
-                  onChange={handleStartYearChange}
-                />
-              </div>
-              <div className={styles.yearInput}>
-                <label>to</label>
-                <input
-                  type="number"
-                  min={startYear + 1}
-                  max="2024"
-                  value={endYear}
-                  onChange={handleEndYearChange}
-                />
-              </div>
+              <input
+                type="number"
+                min="1977"
+                max={endYear - 1}
+                value={startYear}
+                onChange={handleStartYearChange}
+                onBlur={handleStartYearBlur}
+                className={styles.yearInput}
+              />
+              <span className={styles.yearSeparator}>to</span>
+              <input
+                type="number"
+                min={startYear + 1}
+                max="2024"
+                value={endYear}
+                onChange={handleEndYearChange}
+                onBlur={handleEndYearBlur}
+                className={styles.yearInput}
+              />
             </div>
           </div>
         </div>
