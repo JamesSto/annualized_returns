@@ -1,6 +1,6 @@
 // import { useState } from 'react'
 import "./App.css";
-import { ASSETS } from "./utils/Constants"
+import { ASSETS } from "./utils/Constants";
 import GrowthChart from "./components/GrowthChart";
 import InteractiveGrowthChart from "./components/InteractiveGrowthChart";
 
@@ -16,11 +16,16 @@ function App() {
         <a href="/">Tinker Deck</a>
       </header>
       <main>
-        <h1>Questioning a Core Assumption of the Nerdwallet & NYTimes Rent vs Buy Calculators</h1>{" "}
-        <h4>And an interactive tool to explore housing and asset growth rates</h4>
+        <h1>
+          Questioning a Core Assumption of the Nerdwallet & NYTimes Rent vs Buy
+          Calculators
+        </h1>{" "}
+        <h4>
+          And an interactive tool to explore housing and asset growth rates
+        </h4>
         <p className="no-margin-bottom">
-          I'll cut to the chase – I think that both <strong>NYTimes</strong> and{" "}
-          <strong>NerdWallet</strong> skew optimistic on housing growth, and
+          I think that both <strong>NYTimes</strong> and{" "}
+          <strong>NerdWallet</strong> skew optimistic on housing growth and
           pessimistic on other asset growth. Because these core assumptions are
           exponential, they're some of the most sensitive assumptions underlying
           the tools – and small changes, or medium ones like the ones I'm
@@ -33,14 +38,18 @@ function App() {
               <div className="image-block">
                 <h3>NYTimes</h3>
                 <p>
-                  Housing: 3%<br/>Other Assets: 4.5%
+                  Housing: 3%
+                  <br />
+                  Other Assets: 4.5%
                 </p>
                 <img src={nytBefore} alt="NYT Calculator Before" />
               </div>
               <div className="image-block">
                 <h3>Updated</h3>
                 <p>
-                  Housing: 3.4%<br/>Other Assets: 7.9%
+                  Housing: 3.4%
+                  <br />
+                  Other Assets: 7.9%
                 </p>
                 <img src={nytAfter} alt="NYT Calculator After" />
               </div>
@@ -52,14 +61,21 @@ function App() {
               <div className="image-block">
                 <h3>NerdWallet</h3>
                 <p>
-                  Housing: 4.5%<br/>Other Assets: 6%
+                  Housing: 4.5%
+                  <br />
+                  Other Assets: 6%
                 </p>
-                <img src={nerdwalletBefore} alt="NerdWallet Calculator Before" />
+                <img
+                  src={nerdwalletBefore}
+                  alt="NerdWallet Calculator Before"
+                />
               </div>
               <div className="image-block">
                 <h3>Updated</h3>
                 <p>
-                  Housing: 3.4%<br/>Other Assets: 7.9%
+                  Housing: 3.4%
+                  <br />
+                  Other Assets: 7.9%
                 </p>
                 <img src={nerdwalletAfter} alt="NerdWallet Calculator After" />
               </div>
@@ -67,34 +83,11 @@ function App() {
           </div>
         </div>
         <p>
-          For my personal plausible numbers, we're talking $1.5M over 25 years.
-        </p>{" "}
-        <p>
           At the end of this post, you can find an interactive tool where you
-          can play with historical growth rates by yourself. Try it out! See
-          what you think of my assumptions. This math has a huge impact on one
-          of the most important decisions in my life (buying a house in the Bay
-          Area), so I'm writing this post for a few reasons:
+          can play with historical growth rates by yourself. Try it out! The
+          road to any decision is paved with a million unchecked assumptions, so
+          I hope you take some time to see if you agree with mine.
         </p>{" "}
-        <ol>
-          {" "}
-          <li>
-            Because{" "}
-            <a href="https://paulgraham.com/writes.html">writing is thinking</a>
-            , and this is nice way to make my thinking concrete
-          </li>{" "}
-          <li>
-            Because if I'm{" "}
-            <a href="https://xkcd.com/386/">
-              <em>Wrong on the Internet</em>
-            </a>
-            ™, hopefully someone will tell me and save me a bunch of money
-          </li>{" "}
-          <li>
-            Because if I'm not, I think this is something other people could
-            benefit from
-          </li>{" "}
-        </ol>{" "}
         <p>
           [Super brief explanation of how the tools work. Include caveat that it
           estimates the financial implications of renting vs buying, not the
@@ -125,7 +118,9 @@ function App() {
           you can see the median annualized growth of all 20 year periods since
           1976.
         </p>{" "}
-        <div><GrowthChart assets={[ASSETS.SP_500_INDEX]} periodSize={20}/></div>{" "}
+        <div>
+          <GrowthChart assets={[ASSETS.SP_500_INDEX]} periodSize={20} />
+        </div>{" "}
         <p>
           Why 20 years? It's about how long I'd expect to stay in any home I
           buy, give or take.{" "}
@@ -157,7 +152,10 @@ function App() {
           Great, so let's add the FHFA House Price Index to our graph. Same
           methodology – percentiles for every 20 year period.
         </p>{" "}
-        <GrowthChart assets={[ASSETS.SP_500_INDEX, ASSETS.USSTHPI_PC1]} periodSize={20}/>
+        <GrowthChart
+          assets={[ASSETS.SP_500_INDEX, ASSETS.USSTHPI_PC1]}
+          periodSize={20}
+        />
         <p>
           Oh – so we're at the 67th percentile for housing. That feels super
           incongruous – why?
@@ -177,7 +175,11 @@ function App() {
           doesn't really matter – US home price growth has been remarkably
           consistent since then.
         </p>{" "}
-        <GrowthChart assets={[ASSETS.USSTHPI_PC1]} periodSize={1} startYear={2010}/>{" "}
+        <GrowthChart
+          assets={[ASSETS.USSTHPI_PC1]}
+          periodSize={1}
+          startYear={2010}
+        />{" "}
         <p>
           Yep, that 4.5% number looks quite reasonable now. There's actually
           never been a year with below 4.6% growth post 2008 recovery. But this
@@ -186,11 +188,16 @@ function App() {
           also doesn't give the same benefit to the S&amp;P 500, which also
           notably crashed in 2008. So what if we just look at pre-2008 data?
         </p>{" "}
-        <GrowthChart assets={[ASSETS.SP_500_INDEX, ASSETS.USSTHPI_PC1]} periodSize={20} endYear={2007}/>{" "}
+        <GrowthChart
+          assets={[ASSETS.SP_500_INDEX, ASSETS.USSTHPI_PC1]}
+          periodSize={20}
+          endYear={2007}
+        />{" "}
         <p>
           In this view, NerdWallet's home price growth rate is the 25th
-          percentile, and other asset growth rate is... half of the lowest 20 year
-          period that exists. But NerdWallet raises a good point in their email:
+          percentile, and other asset growth rate is... half of the lowest 20
+          year period that exists. But NerdWallet raises a good point in their
+          email:
         </p>{" "}
         <blockquote>
           {" "}
@@ -258,6 +265,30 @@ function App() {
           Area, so I'll probably adjust for specific local housing numbers at
           least some.
         </p>{" "}
+        <p>
+          This math has a huge impact on one of the most important decisions in
+          my life (buying a house in the Bay Area), so I’m writing this post for
+          a few reasons.
+        </p>
+        <ol>
+          {" "}
+          <li>
+            Because{" "}
+            <a href="https://paulgraham.com/writes.html">writing is thinking</a>
+            , and this is nice way to make my thinking concrete
+          </li>{" "}
+          <li>
+            Because if I'm{" "}
+            <a href="https://xkcd.com/386/">
+              <em>Wrong on the Internet</em>
+            </a>
+            ™, hopefully someone will tell me and save me a bunch of money
+          </li>{" "}
+          <li>
+            Because if I'm not, I think this is something other people could
+            benefit from
+          </li>{" "}
+        </ol>{" "}
         <div className="interactive-growth-chart">
           <InteractiveGrowthChart />
         </div>
