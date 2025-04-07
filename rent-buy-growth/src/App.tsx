@@ -95,8 +95,7 @@ function App() {
         </p>{" "}
         <p>
           So let's build up how we got here step by step. The awesome people at
-          NerdWallet replied to my email, so let's build up their methodology
-          visually.
+          NerdWallet replied to my email, so we'll walk through their methodology step by step
         </p>{" "}
         <blockquote>
           {" "}

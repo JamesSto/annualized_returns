@@ -117,7 +117,7 @@ const GrowthChart: React.FC<GrowthChartProps> = ({
   return (
     <div className={styles.chartContainer}>
       <h2 className={styles.chartTitle}>
-        Average Growth for Every {periodSize} Year Period {startYear ?? 1977} -{" "}
+        Annualized Growth for Every {periodSize} Year Period {startYear ?? 1977} -{" "}
         {endYear ?? 2024}
       </h2>
       <ResponsiveContainer>
