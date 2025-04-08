@@ -26,6 +26,7 @@ import {
 interface GrowthChartProps {
   assets: ASSETS[];
   periodSize: number;
+  adjustForInflation?: boolean;
   startYear?: number;
   endYear?: number;
 }
@@ -84,6 +85,7 @@ const GrowthChart: React.FC<GrowthChartProps> = ({
   // Destructure props here
   assets,
   periodSize,
+  adjustForInflation = false,
   startYear = 1977,
   endYear = 2024,
 }) => {
@@ -96,7 +98,13 @@ const GrowthChart: React.FC<GrowthChartProps> = ({
 
   let chartData;
   if (isValidRange()) {
-    chartData = getChartDataForParams(assets, periodSize, startYear, endYear);
+    chartData = getChartDataForParams(
+      assets,
+      periodSize,
+      adjustForInflation,
+      startYear,
+      endYear
+    );
   } else {
     chartData = getChartDataForParams([], periodSize);
   }
@@ -117,16 +125,16 @@ const GrowthChart: React.FC<GrowthChartProps> = ({
   return (
     <div className={styles.chartContainer}>
       <h2 className={styles.chartTitle}>
-        Annualized Growth for Every {periodSize} Year Period {startYear ?? 1977} -{" "}
-        {endYear ?? 2024}
+        {adjustForInflation ? "Real" : "Nominal"} Annualized Growth for Every{" "}
+        {periodSize} Year Period {startYear ?? 1977} - {endYear ?? 2024}
       </h2>
-      <ResponsiveContainer 
-        width="100%" 
+      <ResponsiveContainer
+        width="100%"
         height={window?.innerWidth < 768 ? 400 : 500}
       >
         <LineChart
           data={chartData}
-          margin={{ 
+          margin={{
             right: 20,
             bottom: 20,
           }}
@@ -146,22 +154,25 @@ const GrowthChart: React.FC<GrowthChartProps> = ({
             <Label
               value="Growth Percentile"
               dy={window?.innerWidth < 768 ? 30 : 25}
-              style={{ textAnchor: "middle", fontSize: window?.innerWidth < 768 ? "0.8rem" : "1rem" }}
+              style={{
+                textAnchor: "middle",
+                fontSize: window?.innerWidth < 768 ? "0.8rem" : "1rem",
+              }}
             />
           </XAxis>
-          <YAxis 
-            tickLine={false} 
+          <YAxis
+            tickLine={false}
             axisLine={true}
             fontSize={window?.innerWidth < 768 ? 10 : 12}
           >
             <Label
-              value="Nominal Growth %"
+              value={(adjustForInflation ? "Real" : "Nominal") + " Growth %"}
               angle={-90}
               dx={10}
               position="insideLeft"
-              style={{ 
-                textAnchor: "middle", 
-                fontSize: window?.innerWidth < 768 ? "0.8rem" : "1rem"
+              style={{
+                textAnchor: "middle",
+                fontSize: window?.innerWidth < 768 ? "0.8rem" : "1rem",
               }}
             />
           </YAxis>
@@ -184,10 +195,7 @@ const GrowthChart: React.FC<GrowthChartProps> = ({
             itemStyle={{ paddingTop: "2px", paddingBottom: "2px" }}
           />
 
-          <Legend
-            verticalAlign="top"
-            content={<CustomLegend />}
-          />
+          <Legend verticalAlign="top" content={<CustomLegend />} />
 
           {Object.values(isValidRange() ? assets : []).map((key: string) => (
             <Line

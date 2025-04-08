@@ -19,19 +19,22 @@ interface RawDataType {
 export const getChartDataForParams = (
   assets: ASSETS[],
   periodSize: number,
+  adjustForInflation?: boolean,
   startYear?: number,
   endYear?: number
 ): ChartDataType[] => {
   const processedData = new Map(
-    Object.entries(rawData)
-    .filter(([year]) => {
+    Object.entries(rawData).filter(([year]) => {
       const numericYear = Number(year);
       return (
         (startYear === undefined || numericYear >= startYear) &&
         (endYear === undefined || numericYear <= endYear)
       );
     })
-    .map(([year, dataByAsset]) => [
+  );
+  console.log(processedData);
+  let assetDataByYear = new Map(
+    Array.from(processedData.entries()).map(([year, dataByAsset]) => [
       year,
       new Map(
         Object.entries(dataByAsset).filter(
@@ -41,8 +44,19 @@ export const getChartDataForParams = (
       ),
     ])
   );
+  console.log(assetDataByYear);
+
+  if (adjustForInflation) {
+    const inflationByYear = new Map(
+      Object.entries(processedData).map(([year, dataByAsset]) => [
+        year,
+        dataByAsset.get("INFLATION_RATE")
+      ])
+    );
+    assetDataByYear = adjustGrowthForInflation(assetDataByYear, inflationByYear)
+  }
   const percentileData = calculateAnnualizedPeriodGrowths(
-    processedData,
+    assetDataByYear,
     periodSize
   );
   const chartData = processPercentiles(percentileData);
@@ -192,4 +206,24 @@ function calculateAnnualizedPeriodGrowths(
     }
   }
   return annualizedGrowths;
+}
+
+/**
+ * Given the input Map<Year, Map<Assets, growthForThatYear>>, adjusts all the growths for inflation
+ */
+function adjustGrowthForInflation(
+  dataByYear: Map<string, Map<ASSETS, number>>,
+  inflationByYear: Map<string, number>
+): Map<string, Map<ASSETS, number>> {
+  const result = new Map<string, Map<ASSETS, number>>();
+  for (const [year, dataByAsset] of dataByYear.entries()) {
+    const inflation = inflationByYear.get(year)!; 
+    const newAssetMap = new Map<ASSETS, number>();
+    for (const [asset, growth] of dataByAsset.entries()) {
+      const adjustedGrowth = (100 + growth) / (100 + inflation) - 1;
+      newAssetMap.set(asset, adjustedGrowth);
+    }
+    result.set(year, newAssetMap);
+  }
+  return result;
 }
