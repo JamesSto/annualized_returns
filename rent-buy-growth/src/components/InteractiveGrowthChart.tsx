@@ -12,6 +12,7 @@ const InteractiveGrowthChart: React.FC = () => {
   const [periodSize, setPeriodSize] = useState<number>(20);
   const [startYear, setStartYear] = useState<number>(1977);
   const [endYear, setEndYear] = useState<number>(2024);
+  const [adjustForInflation, setAdjustForInflation] = useState<boolean>(false);
 
   // Handle asset selection
   const handleAssetToggle = (asset: ASSETS) => {
@@ -62,6 +63,11 @@ const InteractiveGrowthChart: React.FC = () => {
     }
   };
 
+  // Handle inflation adjustment toggle
+  const handleInflationToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAdjustForInflation(e.target.checked);
+  };
+
   return (
     <>
       <div>
@@ -70,6 +76,7 @@ const InteractiveGrowthChart: React.FC = () => {
           periodSize={periodSize}
           startYear={startYear}
           endYear={endYear}
+          adjustForInflation={adjustForInflation}
         />
       </div>
       <div className={styles.controlsContainer}>
@@ -129,6 +136,22 @@ const InteractiveGrowthChart: React.FC = () => {
                 onBlur={handleEndYearBlur}
                 className={styles.yearInput}
               />
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.controlSection}>
+          <div className={styles.horizontalControl}>
+            <h3 className={styles.controlTitle}>Adjust for Inflation:</h3>
+            <div className={styles.inflationControl}>
+              <label className={styles.customCheckbox}>
+                <input
+                  type="checkbox"
+                  checked={adjustForInflation}
+                  onChange={handleInflationToggle}
+                />
+                <span className={styles.checkmark}></span>
+              </label>
             </div>
           </div>
         </div>

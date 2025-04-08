@@ -232,6 +232,70 @@
   -moz-appearance: textfield;
 }
 
+/* Custom Checkbox Styling */
+.inflationControl {
+  display: flex;
+  align-items: center;
+}
+
+.customCheckbox {
+  position: relative;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.customCheckbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 24px;
+  width: 24px;
+  background-color: #f7fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.customCheckbox:hover .checkmark {
+  background-color: #edf2f7;
+  border-color: #cbd5e0;
+}
+
+.customCheckbox input:checked ~ .checkmark {
+  background-color: #4299e1;
+  border-color: #4299e1;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.customCheckbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.customCheckbox .checkmark:after {
+  left: 8px;
+  top: 4px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
 .noSelectionMessage {
   display: flex;
   justify-content: center;

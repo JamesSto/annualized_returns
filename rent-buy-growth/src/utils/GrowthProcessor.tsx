@@ -32,7 +32,7 @@ export const getChartDataForParams = (
       );
     })
   );
-  console.log(processedData);
+
   let assetDataByYear = new Map(
     Array.from(processedData.entries()).map(([year, dataByAsset]) => [
       year,
@@ -44,13 +44,12 @@ export const getChartDataForParams = (
       ),
     ])
   );
-  console.log(assetDataByYear);
 
   if (adjustForInflation) {
     const inflationByYear = new Map(
-      Object.entries(processedData).map(([year, dataByAsset]) => [
+      Array.from(processedData.entries()).map(([year, dataByAsset]) => [
         year,
-        dataByAsset.get("INFLATION_RATE")
+        dataByAsset["INFLATION_RATE"]
       ])
     );
     assetDataByYear = adjustGrowthForInflation(assetDataByYear, inflationByYear)
@@ -220,7 +219,7 @@ function adjustGrowthForInflation(
     const inflation = inflationByYear.get(year)!; 
     const newAssetMap = new Map<ASSETS, number>();
     for (const [asset, growth] of dataByAsset.entries()) {
-      const adjustedGrowth = (100 + growth) / (100 + inflation) - 1;
+      const adjustedGrowth = ((100.0 + growth) / (100.0 + inflation) - 1.0) * 100.0;
       newAssetMap.set(asset, adjustedGrowth);
     }
     result.set(year, newAssetMap);
