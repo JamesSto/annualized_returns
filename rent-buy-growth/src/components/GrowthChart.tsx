@@ -49,12 +49,11 @@ const CustomLegend: React.FC<CustomLegendProps> = (props) => {
   const [activeItem, setActiveItem] = useState<string | null>(null);
 
   const { payload = [] } = props;
-  console.log(payload);
   return (
     <div className={styles.legendContainer}>
       {payload.map((entry, index) => (
-        <a target="_blank" href={ASSET_LINKS[entry.dataKey]}>
-          <div key={`item-${index}`} className={styles.legendItem}>
+        <a key={`item-${index}`} target="_blank" href={ASSET_LINKS[entry.dataKey]}>
+          <div className={styles.legendItem}>
             <span
               className={styles.legendText}
               onMouseEnter={() => setActiveItem(entry.value)}
