@@ -26,8 +26,9 @@ h4 {
 
 .comparison-images {
   display: flex;
-  justify-content: space-around; /* Space out images */
-  gap: 1rem; /* Space between images */
+  justify-content: space-between; /* Changed from space-around to space-between */
+  align-items: flex-start; /* Changed from center to flex-start to align at the top */
+  gap: 3rem; /* Increased gap to make room for arrows */
   flex-wrap: wrap; /* Allow wrapping on smaller screens */
 }
 
@@ -38,6 +39,7 @@ h4 {
   text-align: center;
   flex: 1; /* Allow blocks to grow and shrink */
   min-width: 250px; /* Minimum width before wrapping */
+  position: relative; /* Added for positioning context */
 }
 
 .image-block h3 {
@@ -57,6 +59,30 @@ h4 {
   margin-top: 0.5rem;
 }
 
+/* New image with arrow styling */
+.image-with-arrow {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  margin: 0 1rem; /* Add horizontal margin to create space for arrows */
+}
+
+.image-with-arrow img {
+  display: block;
+  width: 100%;
+}
+
+.image-with-arrow .arrow {
+  position: absolute;
+  right: -1.5rem; /* Adjust position to account for new margin */
+  top: 50%;
+  transform: translate(50%, -50%);
+  font-size: 2.5rem;
+  color: #252525;
+  font-weight: bolder;
+  z-index: 1;
+}
+
 .logo {
   height: 6em;
 }
@@ -68,3 +94,5 @@ h4 {
 .interactive-growth-chart {
     margin-bottom: 10;
 }
+
+/* Remove old arrow styling that's no longer needed */

@@ -36,22 +36,27 @@ function App() {
           <div className="comparison-section">
             <div className="comparison-images">
               <div className="image-block">
-                <h3>New York Times</h3>
+                <h3>Before: New York Times</h3>
                 <p>
                   Housing: 3%
                   <br />
                   Other Assets: 4.5%
                 </p>
-                <img src={nytBefore} alt="NYT Calculator Before" />
+                <div className="image-with-arrow">
+                  <img src={nytBefore} alt="NYT Calculator Before" />
+                  <div className="arrow">→</div>
+                </div>
               </div>
               <div className="image-block">
-                <h3>Updated</h3>
+                <h3>After: New York Times</h3>
                 <p>
                   Housing: 3.4%
                   <br />
                   Other Assets: 7.9%
                 </p>
-                <img src={nytAfter} alt="NYT Calculator After" />
+                <div className="image-with-arrow">
+                  <img src={nytAfter} alt="NYT Calculator After" />
+                </div>
               </div>
             </div>
           </div>
@@ -59,25 +64,30 @@ function App() {
           <div className="comparison-section">
             <div className="comparison-images">
               <div className="image-block">
-                <h3>NerdWallet</h3>
+                <h3>Before: NerdWallet</h3>
                 <p>
                   Housing: 4.5%
                   <br />
                   Other Assets: 6%
                 </p>
-                <img
-                  src={nerdwalletBefore}
-                  alt="NerdWallet Calculator Before"
-                />
+                <div className="image-with-arrow">
+                  <img
+                    src={nerdwalletBefore}
+                    alt="NerdWallet Calculator Before"
+                  />
+                  <div className="arrow">→</div>
+                </div>
               </div>
               <div className="image-block">
-                <h3>Updated</h3>
+                <h3>After: NerdWallet</h3>
                 <p>
                   Housing: 3.4%
                   <br />
                   Other Assets: 7.9%
                 </p>
-                <img src={nerdwalletAfter} alt="NerdWallet Calculator After" />
+                <div className="image-with-arrow">
+                  <img src={nerdwalletAfter} alt="NerdWallet Calculator After" />
+                </div>
               </div>
             </div>
           </div>
@@ -266,7 +276,7 @@ function App() {
         </p>{" "}
         <p>
           This math has a huge impact on one of the most important decisions in
-          my life (buying a house in the Bay Area), so I’m writing this post for
+          my life (buying a house in the Bay Area), so I'm writing this post for
           a few reasons.
         </p>
         <ol>

@@ -16,8 +16,7 @@ Inflation: https://fred.stlouisfed.org/graph/?g=1FETQ
 
 TODO:
 
-1. Fetch json data instead of importing it?
-2. Inflation adjustment toggle
+1. Inflation adjustment toggle
 
 MAYBE:
 
