@@ -21,7 +21,7 @@ function App() {
           Calculators
         </h1>{" "}
         <h4>
-          And an interactive tool to explore housing and asset growth rates
+        <a href="#interactive-growth">Click to try the interactive growth explorer now</a>
         </h4>
         <p className="no-margin-bottom">
           I think that both NYTimes and{" "}
@@ -93,7 +93,8 @@ function App() {
           </div>
         </div>
         <p>
-          At the end of this post, you can find an interactive tool where you
+          At the end of this post, you can find an{" "}
+          <a href="#interactive-growth">interactive tool</a> where you
           can play with historical growth rates by yourself. Try it out! The
           road to any decision is paved with a million unchecked assumptions, so
           I hope you take some time to see if you agree with mine.
@@ -298,7 +299,8 @@ function App() {
             benefit from
           </li>{" "}
         </ol>{" "}
-        <div className="interactive-growth-chart">
+        <div id="interactive-growth" className="interactive-growth-chart">
+          <h2 style={{textAlign: "center"}}>Interactive Asset vs Housing Growth</h2>
           <InteractiveGrowthChart />
         </div>
       </main>
