@@ -16,7 +16,8 @@ Inflation: https://fred.stlouisfed.org/graph/?g=1FETQ
 
 TODO:
 
-1. Inflation adjustment toggle
+1. Change title: Homeownership is probably even worse financially than the NYTimes/NerdWallet calculators imply (workshop it)
+2. Add the before/after values to the initial chart
 
 MAYBE:
 
