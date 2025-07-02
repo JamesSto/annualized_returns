@@ -17,20 +17,22 @@ function App() {
       </header>
       <main>
         <h1>
-          Questioning a Core Assumption of the Nerdwallet & NYTimes Rent vs Buy
-          Calculators
+          Buying a home is probably even worse financially than the
+          NYTimes/NerdWallet calculators imply
         </h1>{" "}
         <h4>
-        <a href="#interactive-growth">Click to try the interactive growth explorer now</a>
+          <a href="#interactive-growth">
+            Click to try the interactive growth explorer now
+          </a>
         </h4>
         <p className="no-margin-bottom">
-          I think that both NYTimes and{" "}
-          NerdWallet skew optimistic on housing growth and
-          pessimistic on other asset growth. Because these core assumptions are
-          exponential, they're some of the most sensitive assumptions underlying
-          the tools – and small changes, or medium ones like the ones I'm
-          suggesting, move the needle <em>a lot</em>. Here's how the topline
-          changes if you adjust nothing other than these growth assumptions:
+          I think that both NYTimes and NerdWallet skew optimistic on housing
+          growth and pessimistic on other asset growth. Because these core
+          assumptions are exponential, they're some of the most sensitive
+          assumptions underlying the tools – and small changes, or medium ones
+          like the ones I'm suggesting, move the needle <em>a lot</em>. Here's
+          how the topline changes if you adjust nothing other than these growth
+          assumptions:
         </p>{" "}
         <div className="comparison-container">
           <div className="comparison-section">
@@ -86,7 +88,10 @@ function App() {
                   Other Assets: 7.9%
                 </p>
                 <div className="image-with-arrow">
-                  <img src={nerdwalletAfter} alt="NerdWallet Calculator After" />
+                  <img
+                    src={nerdwalletAfter}
+                    alt="NerdWallet Calculator After"
+                  />
                 </div>
               </div>
             </div>
@@ -94,19 +99,26 @@ function App() {
         </div>
         <p>
           At the end of this post, you can find an{" "}
-          <a href="#interactive-growth">interactive tool</a> where you
-          can play with historical growth rates by yourself. Try it out! The
-          road to any decision is paved with a million unchecked assumptions, so
-          I hope you take some time to see if you agree with mine.
+          <a href="#interactive-growth">interactive tool</a> where you can play
+          with historical growth rates by yourself. Try it out! The road to any
+          decision is paved with a million unchecked assumptions, so I hope you
+          take some time to see if you agree with mine.
         </p>{" "}
         <p>
-          [Super brief explanation of how the tools work. Include caveat that it
-          estimates the financial implications of renting vs buying, not the
-          life implications.]
+          For those unfamiliar, these rent/buy calculators attempt to estimate
+          the cash flow over XX years for renting vs buying a home. For buying,
+          this is the down payment, mortgage, taxes, etc, and then crucially
+          selling the appreciated home after XX years. For renting, this is
+          mostly rent, but also crucially investment income from investing the
+          money that would have gone into the mortgage/down payment. When I
+          recalculate these numbers, all I'm doing is saying that the default home
+          appreciation rate and the investment appreciation rate should be
+          updated in the tool.
         </p>{" "}
         <p>
           So let's build up how we got here step by step. The awesome people at
-          NerdWallet replied to my email, so we'll walk through their methodology step by step
+          NerdWallet replied to my email, so we'll walk through their
+          methodology step by step
         </p>{" "}
         <blockquote>
           {" "}
@@ -188,7 +200,7 @@ function App() {
         <GrowthChart
           assets={[ASSETS.USSTHPI_PC1]}
           periodSize={1}
-          startYear={2010}
+          startYear={2014}
         />{" "}
         <p>
           Yep, that 4.5% number looks quite reasonable now. There's actually
@@ -300,7 +312,9 @@ function App() {
           </li>{" "}
         </ol>{" "}
         <div id="interactive-growth" className="interactive-growth-chart">
-          <h2 style={{textAlign: "center"}}>Interactive Asset vs Housing Growth</h2>
+          <h2 style={{ textAlign: "center" }}>
+            Interactive Asset vs Housing Growth
+          </h2>
           <InteractiveGrowthChart />
         </div>
       </main>
