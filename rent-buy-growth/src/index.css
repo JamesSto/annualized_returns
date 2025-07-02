@@ -107,6 +107,10 @@ footer a {
 }
 
 @media (max-width: 480px) {
+  html {
+    font-size: 18px;
+  }
+
   header {
     font-size: 1.8rem;
   }

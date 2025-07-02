@@ -157,11 +157,11 @@ function App() {
           Why 20 years? It's about how long I'd expect to stay in any home I
           buy, give or take.{" "}
           <a href="https://www.sfchronicle.com/realestate/article/when-homes-sell-20217490.php">
-            It's the median Bay Area home tenure
+            It's about the median Bay Area home tenure
           </a>
           . That said, it's double the length of the average US home tenure, so
           this assumption favors buying a home. As with most of the arbitrary
-          choices in this blog, if you don't like it – skip to the end and mess
+          choices in this blog, if you don't like it, skip to the end and mess
           with it yourself.
         </p>{" "}
         <p>
@@ -310,7 +310,7 @@ function App() {
         </p>{" "}
         <p>
           It's worth emphasizing again that the point here isn't that the S&P
-          500 appreciates faster than homes - that's pretty uncontroversial. The
+          500 appreciates faster than homes; that's pretty uncontroversial. The
           point is that it does so{" "}
           <b>faster than the rent/buy calculators default to</b>, which means
           that they likely make buying look better than it is.
