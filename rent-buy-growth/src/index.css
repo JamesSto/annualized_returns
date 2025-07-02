@@ -64,3 +64,30 @@ blockquote {
   padding-left: 1em;
   color: #718096;
 }
+
+/* Footer styles */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #f5f7fa;
+  border-top: 1px solid #e0e4e8;
+  color: #718096;
+  font-size: 0.9em;
+}
+
+footer a {
+  color: #3182ce;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  main {
+    margin: 1rem auto;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    font-size: 1.8rem;
+  }
+}

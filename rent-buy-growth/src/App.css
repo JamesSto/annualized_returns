@@ -91,6 +91,7 @@ h4 {
 @media (max-width: 600px) {
   .comparison-images {
     gap: 1rem;
+    flex-direction: column;
   }
 
   .image-with-arrow .arrow {
