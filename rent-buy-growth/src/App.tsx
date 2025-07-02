@@ -18,7 +18,8 @@ function App() {
       </header>
       <main>
         <h1>
-          Homebuying is Probably Even Worse than the NYTimes/NerdWallet Calculators Imply
+          Buying a Home is Probably Even Worse than the NYTimes/NerdWallet
+          Calculators Imply
         </h1>{" "}
         <h4>
           <a href="#interactive-growth">
@@ -26,13 +27,12 @@ function App() {
           </a>
         </h4>
         <p className="no-margin-bottom">
-          I think that both NYTimes and NerdWallet skew optimistic on home price
-          appreciation relative to appreciation of cash investments. Because
-          these core assumptions are exponential, they're some of the most
-          sensitive assumptions underlying the tools. Small changes, or
-          medium ones like the ones I'm suggesting, move the needle{" "}
-          <em>a lot</em>. Here's how the topline changes if you adjust nothing
-          other than these growth assumptions:
+          Home price appreciation rates and cash investment appreciation rates
+          are some of the most important inputs to rent vs buy calculators. Yet
+          those calculators don't seem to have put a lot of thought into their
+          defaults. Small changes, or medium ones like the ones I'm suggesting,
+          move the needle <em>a lot</em>. Here's how the topline changes if you
+          adjust nothing other than these growth assumptions:
         </p>{" "}
         <div className="comparison-container">
           <div className="comparison-section">
@@ -297,8 +297,8 @@ function App() {
         <p>
           These nice charts look very authoritative, but fundamentally there
           aren't that many 20 year periods to look at in the last 50ish years.
-          And because those periods overlap a lot, the charts give the illusion of
-          more data than they actually have. The future is very uncertain.
+          And because those periods overlap a lot, the charts give the illusion
+          of more data than they actually have. The future is very uncertain.
         </p>
         <h2>So I'm Probably Renting</h2>
         <p>
