@@ -30,9 +30,11 @@ function App() {
           Home price appreciation rates and cash investment appreciation rates
           are some of the most important inputs to rent vs buy calculators. Yet
           those calculators don't seem to have put a lot of thought into their
-          defaults. Small changes, or medium ones like the ones I'm suggesting,
-          move the needle <em>a lot</em>. Here's how the topline changes if you
-          adjust nothing other than these growth assumptions:
+          defaults. They <em>seriously</em>seriously understimate how much
+          better of an investment stocks have been than homes historically.
+          Small changes, or medium ones like the ones I'm suggesting, move the
+          needle <em>a lot</em>. Here's how the topline changes if you adjust
+          nothing other than these growth assumptions:
         </p>{" "}
         <div className="comparison-container">
           <div className="comparison-section">
@@ -139,6 +141,10 @@ function App() {
               historic stock market returns
             </a>
             , which average 10%
+            <Tooltip
+              number={3}
+              content="Neither tool states this explicitly, but they seem to be using nominal (not inflation adjusted) values, so that's the convention I'll follow."
+            />
           </p>{" "}
         </blockquote>{" "}
         <p>
@@ -148,7 +154,7 @@ function App() {
           year periods since 1976 that achieved at most that annualized growth
           rate. For example, by looking at the 50th percentile on the X axis,
           you can see the median annualized growth of all 20 year periods since
-          1976.
+          1976. As NerdWallet said, this is about 10%.
         </p>{" "}
         <div>
           <GrowthChart assets={[ASSETS.SP_500_INDEX]} periodSize={20} />
@@ -166,7 +172,7 @@ function App() {
         </p>{" "}
         <p>
           As you can see, 6% growth is the 5th percentile for S&amp;P 500
-          returns. That's quite conservative, but it's a defensible choice – you
+          returns. That's quite conservative, but it's a defensible choice. You
           should probably plan your finances assuming slow growth, because if
           growth goes well hopefully things will be pretty good no matter what
           you choose.
@@ -182,7 +188,7 @@ function App() {
         </blockquote>{" "}
         <p>
           Great, so let's add the FHFA House Price Index to our graph. Same
-          methodology – percentiles for every 20 year period.
+          methodology: percentiles for every 20 year period.
         </p>{" "}
         <GrowthChart
           assets={[ASSETS.SP_500_INDEX, ASSETS.USSTHPI_PC1]}
@@ -204,7 +210,7 @@ function App() {
           They're not specific on what/why, but I assume the main effect of this
           is to remove the 2008 financial crisis from the numbers. You can't
           really show "20 year periods after 2008" for obvious reasons, but it
-          doesn't really matter – US home price growth has been remarkably
+          doesn't really matter: US home price growth has been remarkably
           consistent since then.
         </p>{" "}
         <GrowthChart
@@ -213,11 +219,11 @@ function App() {
           startYear={2014}
         />{" "}
         <p>
-          Yep, that 4.5% number looks quite reasonable now. There's actually
-          never been a year with below 4.6% growth post 2008 recovery. But this
-          is a pretty tenuous assumption, in my opinion – deciding to remove a
-          crash without removing the following boom is a hard sell for me. This
-          also doesn't give the same benefit to the S&amp;P 500, which also
+          That 4.5% number home price growth rate looks quite reasonable now.
+          There's actually never been a year with below 4.6% growth post 2008
+          recovery. But this is a pretty tenuous assumption — deciding to remove
+          a crash without removing the following boom is a hard sell for me.
+          This also doesn't give the same benefit to the S&amp;P 500, which also
           notably crashed in 2008. So what if we just look at pre-2008 data?
         </p>{" "}
         <GrowthChart
@@ -249,16 +255,16 @@ function App() {
           looking at low percentiles, but maybe we should do it more?
         </p>{" "}
         <p>
-          I'd be sympathetic to this argument, except for one major problem –
+          I'd be sympathetic to this argument, except for one major problem:
           when you buy a house, you're not buying a housing index. You're buying
           one single house. That's <strong>a lot</strong> more volatile than an
-          index. In fact, the data I've seen says that individual houses are{" "}
+          index. Individual houses are{" "}
           <a href="https://www.nber.org/system/files/working_papers/w12036/w12036.pdf#:~:text=using%20OFHEO%20state%20level%20house,level%20housing%20returns">
             4x the volatility of a housing index
           </a>
-          , and{" "}
+          , close to{" "}
           <a href="https://www.fhfa.gov/sites/default/files/2023-03/wp1701.pdf#:~:text=others%2C%20who%20show%20using%20micro,returns%20to%20housing%3A%20why%20is">
-            close to the same volatility as the stock market
+            the same volatility as the stock market
           </a>
           . Given that similarity, I'd call being able to choose your own risk
           tolerance a benefit of other assets, not a downside, so I'm hesitant
@@ -266,13 +272,13 @@ function App() {
           as volatile as the market, so maybe adjusting stocks down a little to
           compensate makes sense, though probably not a lot.
           <Tooltip
-            number={3}
+            number={4}
             content="There's another reasonable argument here that buying a house *forces* you to invest your income, 
             and many are likely to spend money they aren't forced to invest. I don't find this argument compelling for me personally, 
             but your situation may be different."
           />
           <Tooltip
-            number={4}
+            number={5}
             content="It could be nice to visualize a typical basket of assets in these
           charts. It'd also be nice to apply a 'volatility adjustment' to the
           home index growth rates. I may come back to that in the future."
@@ -281,9 +287,9 @@ function App() {
         <h2>Here Be Fat-Tailed Dragons</h2>
         <p>
           There's a lot of higher level arguments one could introduce here, less
-          grounded in historical trends and speculative. Maybe US historical
-          stock growth is an aberration and we should regress it to the
-          international mean,{" "}
+          grounded in historical trends and more speculative. Maybe US
+          historical stock growth is an aberration and we should regress it to
+          the international mean,{" "}
           <a href="https://mebfaber.com/2020/01/10/the-case-for-global-investing/">
             about 5% in real terms
           </a>
