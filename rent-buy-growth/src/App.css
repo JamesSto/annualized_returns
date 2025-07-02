@@ -68,7 +68,6 @@ h4 {
   position: relative;
   display: inline-block;
   width: 100%;
-  margin: 0 1rem; /* Add horizontal margin to create space for arrows */
 }
 
 .image-with-arrow img {
@@ -78,9 +77,9 @@ h4 {
 
 .image-with-arrow .arrow {
   position: absolute;
-  right: -1.5rem;
   top: 50%;
-  transform: translate(50%, -50%);
+  right: 0;
+  transform: translateY(-50%);
   font-size: 2.5rem;
   color: #252525;
   font-weight: bolder;

@@ -27,13 +27,13 @@ function App() {
           </a>
         </h4>
         <p className="no-margin-bottom">
-          I think that both NYTimes and NerdWallet skew optimistic on housing
-          growth and relative to other asset growth. Because these core
-          assumptions are exponential, they're some of the most sensitive
-          assumptions underlying the tools – and small changes, or medium ones
-          like the ones I'm suggesting, move the needle <em>a lot</em>. Here's
-          how the topline changes if you adjust nothing other than these growth
-          assumptions:
+          I think that both NYTimes and NerdWallet skew optimistic on home price
+          appreciation relative to appreciation of cash investments. Because
+          these core assumptions are exponential, they're some of the most
+          sensitive assumptions underlying the tools – and small changes, or
+          medium ones like the ones I'm suggesting, move the needle{" "}
+          <em>a lot</em>. Here's how the topline changes if you adjust nothing
+          other than these growth assumptions:
         </p>{" "}
         <div className="comparison-container">
           <div className="comparison-section">
@@ -107,25 +107,29 @@ function App() {
         </p>{" "}
         <p>
           For those unfamiliar, these rent/buy calculators attempt to estimate
-          the cash flow over XX years for renting vs buying a home.
+          the cash flow over XX years for renting vs buying a home
           <Tooltip
             number={1}
             content="Of course, they can never tell you how much you should *value* buying a home over renting. 
             Each has *a lot* of non-financial implications, and only you can decide how much those are worth to you."
           />
           . For buying, this is the down payment, mortgage, taxes, etc, and then
-          crucially selling the appreciated home after XX years. For renting,
-          this is mostly rent, but also crucially investment income from
-          investing the money that would have gone into the mortgage/down
-          payment. When I recalculate these numbers, all I'm doing is saying
-          that the default home appreciation rate and the investment
+          crucially selling the appreciated home after XX years
+          <Tooltip
+            number={2}
+            content="Buying also has the large advantage of being a highly leveraged investment, which the tools also account for."
+          />
+          . For renting, this is mostly rent, but also crucially investment
+          income from investing the money that would have gone into the
+          mortgage/down payment. When I recalculate these numbers, all I'm doing
+          is saying that the default home appreciation rate and the investment
           appreciation rate should be updated in the tool, and showing the
           result of that.
         </p>{" "}
+        <h2>Where do the default numbers come from?</h2>{" "}
         <p>
-          So let's build up how we got here step by step. The awesome people at
-          NerdWallet replied to my email, so we'll walk through their
-          methodology step by step.
+          The awesome people at NerdWallet replied to my email, so we'll walk
+          through their methodology step by step.
         </p>{" "}
         <blockquote>
           {" "}
@@ -225,9 +229,10 @@ function App() {
         <p>
           In this view, NerdWallet's home price growth rate is the 25th
           percentile, and other asset growth rate is... half of the lowest 20
-          year period that exists. But NerdWallet raises a good point in their
-          email:
+          year period that exists.
         </p>{" "}
+        <h2>Stocks have risk, but homes are about as risky</h2>
+        <p>NerdWallet raises a reasonable point in their email:</p>
         <blockquote>
           {" "}
           <p>
@@ -261,7 +266,20 @@ function App() {
           to lower it on that account. But it seems a single house is not quite
           as volatile as the market, so maybe adjusting stocks down a little to
           compensate makes sense, though probably not a lot.
+          <Tooltip
+            number={3}
+            content="There's another reasonable argument here that buying a house *forces* you to invest your income, 
+            and many are likely to spend money they aren't forced to invest. I don't find this argument compelling for me personally, 
+            but your situation may be different."
+          />
+          <Tooltip
+            number={4}
+            content="It could be nice to visualize a typical basket of assets in these
+          charts. It'd also be nice to apply a 'volatility adjustment' to the
+          home index growth rates. I may come back to that in the future."
+          />
         </p>{" "}
+        <h2>Here Be Fat-Tailed Dragons</h2>
         <p>
           There's a lot of higher level arguments one could introduce here, less
           grounded in historical trends and speculative. Maybe US historical
@@ -271,19 +289,32 @@ function App() {
             about 5% in real terms
           </a>
           . Maybe housing prices are about to take off for some reason or
-          another. Or maybe YIMBY's will win and housing prices will drop. I
-          feel far less capable of making these judgments, and so I'm tempted to
+          another. Or maybe YIMBYs will win and housing prices will drop. I feel
+          far less capable of making these judgments, and so I'm tempted to
           throw them into one big pile labeled "uncertainty", and call it a
           wash. But as with the volatility argument, uncertainty would trend me
           more towards not locking up my money in a single asset.
         </p>{" "}
         <p>
-          So there you have it. After all that, I don't really have a principled
-          take on exactly what percentile you should use, but it ends up not
-          mattering a ton. My mostly arbitrary take is that looking at the
-          historical 20th percentile probably makes sense as a starting point,
-          which would be 3.4% growth for housing and 7.9% growth for the S&amp;P
-          500.
+          These nice charts look very authoritative, but fundamentally there
+          aren't that many 20 year periods to look at in the last 50ish years.
+          And because those periods overlap a lot, the charts give the illusion of
+          more data than they actually have. The future is very uncertain.
+        </p>
+        <h2>So I'm Probably Renting</h2>
+        <p>
+          After all that, I don't really have a principled take on exactly what
+          percentile you should use, but it ends up not mattering a ton. My
+          mostly arbitrary take is that looking at the historical 20th
+          percentile probably makes sense as a starting point, which would be
+          3.4% growth for housing and 7.9% growth for the S&amp;P 500.
+        </p>{" "}
+        <p>
+          It's worth emphasizing again that the point here isn't that the S&P
+          500 appreciates faster than homes - that's pretty uncontroversial. The
+          point is that it does so{" "}
+          <b>faster than the rent/buy calculators default to</b>, which means
+          that they likely make buying look better than it is.
         </p>{" "}
         <p>
           On my own finances, plugging a plausible house price and financing
@@ -302,7 +333,7 @@ function App() {
           <li>
             Because{" "}
             <a href="https://paulgraham.com/writes.html">writing is thinking</a>
-            , and this is nice way to make my thinking concrete
+            , and this is a nice way to make my thinking concrete
           </li>{" "}
           <li>
             Because if I'm{" "}
@@ -318,7 +349,7 @@ function App() {
         </ol>{" "}
         <div id="interactive-growth" className="interactive-growth-chart">
           <h2 style={{ textAlign: "center" }}>
-            Interactive Asset vs Housing Growth
+            Interactive Asset vs Housing Appreciation
           </h2>
           <InteractiveGrowthChart />
         </div>
