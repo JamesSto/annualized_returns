@@ -30,7 +30,7 @@ function App() {
           Home price appreciation rates and cash investment appreciation rates
           are some of the most important inputs to rent vs buy calculators. Yet
           those calculators don't seem to have put a lot of thought into their
-          defaults. They <em>seriously</em>seriously understimate how much
+          defaults. They <em>seriously</em> understimate how much
           better of an investment stocks have been than homes historically.
           Small changes, or medium ones like the ones I'm suggesting, move the
           needle <em>a lot</em>. Here's how the topline changes if you adjust
