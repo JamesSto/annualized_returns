@@ -243,7 +243,7 @@ function App() {
           </p>{" "}
         </blockquote>{" "}
         <p>
-          The reason people do this is pretty simple – the S&amp;P 500 is a lot
+          The reason people do this is straightforward: the S&amp;P 500 is a lot
           more volatile than the housing index, and we should value
           stability/diversity over maximum growth. We are kind of doing that by
           looking at low percentiles, but maybe we should do it more?
