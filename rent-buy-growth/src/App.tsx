@@ -18,8 +18,7 @@ function App() {
       </header>
       <main>
         <h1>
-          Buying a home is probably even worse financially than the
-          NYTimes/NerdWallet calculators imply
+          Homebuying is Probably Even Worse than the NYTimes/NerdWallet Calculators Imply
         </h1>{" "}
         <h4>
           <a href="#interactive-growth">
@@ -30,7 +29,7 @@ function App() {
           I think that both NYTimes and NerdWallet skew optimistic on home price
           appreciation relative to appreciation of cash investments. Because
           these core assumptions are exponential, they're some of the most
-          sensitive assumptions underlying the tools – and small changes, or
+          sensitive assumptions underlying the tools. Small changes, or
           medium ones like the ones I'm suggesting, move the needle{" "}
           <em>a lot</em>. Here's how the topline changes if you adjust nothing
           other than these growth assumptions:

@@ -77,9 +77,9 @@ h4 {
 
 .image-with-arrow .arrow {
   position: absolute;
+  right: -1.5rem;
   top: 50%;
-  right: 0;
-  transform: translateY(-50%);
+  transform: translate(50%, -50%);
   font-size: 2.5rem;
   color: #252525;
   font-weight: bolder;
