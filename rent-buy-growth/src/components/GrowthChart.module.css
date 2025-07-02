@@ -153,6 +153,7 @@
   align-items: center;
   gap: 10px;
   flex: 1;
+  flex-wrap: wrap;
 }
 
 .slider {
@@ -374,4 +375,22 @@
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
   border-top: 5px solid rgba(40, 45, 60, 0.85);
+}
+
+@media (max-width: 420px) {
+  .rangeControl {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .slider {
+    width: 100%;
+  }
+
+  .rangeValue {
+    min-width: unset;
+    text-align: left;
+    margin-top: 5px;
+  }
 }
