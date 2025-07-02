@@ -3,6 +3,7 @@ import "./App.css";
 import { ASSETS } from "./utils/Constants";
 import GrowthChart from "./components/GrowthChart";
 import InteractiveGrowthChart from "./components/InteractiveGrowthChart";
+import Tooltip from "./components/Tooltip";
 
 import nytBefore from "./assets/nyt_before.png";
 import nytAfter from "./assets/nyt_after.png";
@@ -27,7 +28,7 @@ function App() {
         </h4>
         <p className="no-margin-bottom">
           I think that both NYTimes and NerdWallet skew optimistic on housing
-          growth and pessimistic on other asset growth. Because these core
+          growth and relative to other asset growth. Because these core
           assumptions are exponential, they're some of the most sensitive
           assumptions underlying the tools – and small changes, or medium ones
           like the ones I'm suggesting, move the needle <em>a lot</em>. Here's
@@ -106,19 +107,25 @@ function App() {
         </p>{" "}
         <p>
           For those unfamiliar, these rent/buy calculators attempt to estimate
-          the cash flow over XX years for renting vs buying a home. For buying,
-          this is the down payment, mortgage, taxes, etc, and then crucially
-          selling the appreciated home after XX years. For renting, this is
-          mostly rent, but also crucially investment income from investing the
-          money that would have gone into the mortgage/down payment. When I
-          recalculate these numbers, all I'm doing is saying that the default home
-          appreciation rate and the investment appreciation rate should be
-          updated in the tool.
+          the cash flow over XX years for renting vs buying a home.
+          <Tooltip
+            number={1}
+            content="Of course, they can never tell you how much you should *value* buying a home over renting. 
+            Each has *a lot* of non-financial implications, and only you can decide how much those are worth to you."
+          />
+          . For buying, this is the down payment, mortgage, taxes, etc, and then
+          crucially selling the appreciated home after XX years. For renting,
+          this is mostly rent, but also crucially investment income from
+          investing the money that would have gone into the mortgage/down
+          payment. When I recalculate these numbers, all I'm doing is saying
+          that the default home appreciation rate and the investment
+          appreciation rate should be updated in the tool, and showing the
+          result of that.
         </p>{" "}
         <p>
           So let's build up how we got here step by step. The awesome people at
           NerdWallet replied to my email, so we'll walk through their
-          methodology step by step
+          methodology step by step.
         </p>{" "}
         <blockquote>
           {" "}
@@ -271,21 +278,19 @@ function App() {
           more towards not locking up my money in a single asset.
         </p>{" "}
         <p>
-          So there you have it. After all though, I don't really have a
-          principled take on exactly what percentile you should use, but it ends
-          up not mattering a ton. My mostly arbitrary take is that looking at
-          the historical 20th percentile probably makes sense as a starting
-          point, which would be 3.4% growth for housing and 7.9% growth for the
-          S&amp;P 500.
+          So there you have it. After all that, I don't really have a principled
+          take on exactly what percentile you should use, but it ends up not
+          mattering a ton. My mostly arbitrary take is that looking at the
+          historical 20th percentile probably makes sense as a starting point,
+          which would be 3.4% growth for housing and 7.9% growth for the S&amp;P
+          500.
         </p>{" "}
         <p>
-          On my own finances, plugging my "preferred" numbers into the NYTimes
-          calculator along with a plausible house price and financing that I
-          would buy, changes the rent/buy difference by more than $1.5M over 25
-          years (!!!!). This, intuitively, feels like an implausibly large
-          difference – so tell me, am I going wrong somewhere? I live in the Bay
-          Area, so I'll probably adjust for specific local housing numbers at
-          least some.
+          On my own finances, plugging a plausible house price and financing
+          that I would buy, changing these values and nothing else changes the
+          rent/buy difference by more than $1.5M over 25 years (!!!). This,
+          intuitively, feels like an implausibly large difference – so tell me,
+          am I going wrong somewhere?
         </p>{" "}
         <p>
           This math has a huge impact on one of the most important decisions in
