@@ -16,11 +16,6 @@ Inflation: https://fred.stlouisfed.org/graph/?g=1FETQ
 
 TODO:
 
-1. Change title: Homeownership is probably even worse financially than the NYTimes/NerdWallet calculators imply (workshop it)
-2. Add the before/after values to the initial chart
-
-MAYBE:
-
-1. Mix stocks/bonds?
-2. Optional housing volatility factor?
+1. Link to the NYTimes/Nerdwallet calculators
+2. Add a "See More TinkerDeck" and "Get New Posts"
 3. Update CSS for tinkerdeck to a light theme too
